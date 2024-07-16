@@ -32,3 +32,4 @@ return new class extends Migration
         Schema::dropIfExists('classes_clear_checks');
     }
 };
+
