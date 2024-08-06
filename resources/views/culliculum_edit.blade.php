@@ -19,6 +19,16 @@
         <!-- サムネイル -->
         <div class="mb-3">
             <dl style="display: flex;flex-wrap: wrap; margin-bottom: 1rem;">
+                @if($curriculum->thumbnail)
+                    <div>(画像ファイル：{{$curriculum->thumbnail}})</div>
+                        <img src="{{ asset('storage/images/'.$curriculum->thumbnail)}}" class="mx-auto" style="width:30%;">
+                        <!-- <img src="{{ asset('storage/images/'.$curriculum->thumbnail)}}" class="mx-auto" style="height:50px;"> -->
+                @endif
+            </dl>
+        </div>
+
+        <div class="mb-3">
+            <dl style="display: flex;flex-wrap: wrap; margin-bottom: 1rem;">
                 <dt style=" width: 30%;"><label for="thumbnail" class="font-semibold leading-none mt-4" style=" margin-top: -1.5rem!important;">サムネイル</label></dt>
                 <dd style=" width: 70%;"><input id="thumbnail" type="file" name="thumbnail"></dd>
             </dl>
