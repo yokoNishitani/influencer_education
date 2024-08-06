@@ -50,7 +50,6 @@
                                     <tr>
                                         <td class="table-img">
                                         @if($curriculum->thumbnail)
-                                        <div>(画像ファイル：{{$curriculum->thumbnail}})</div>
                                         <img src="{{ asset('storage/images/'.$curriculum->thumbnail)}}" class="mx-auto" style="width:100%;">
                                         <!-- <img src="{{ asset('storage/images/'.$curriculum->thumbnail)}}" class="mx-auto" style="height:50px;"> -->
 
