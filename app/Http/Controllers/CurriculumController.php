@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-// 追記
-use Illuminate\Support\Facades\DB;
-
 use App\Models\Curriculum;
 use Illuminate\Http\Request;
 
@@ -18,7 +15,6 @@ class CurriculumController extends Controller {
     public function index() {
         $curriculums = Curriculum::all();
         return view( 'culliculum_list', compact( 'curriculums' ) );
-
     }
 
     /**
@@ -28,7 +24,8 @@ class CurriculumController extends Controller {
     */
 
     public function create() {
-        //
+        // フォーム表示のためのメソッド
+        return view( 'culliculum_create' );
     }
 
     /**
@@ -38,9 +35,30 @@ class CurriculumController extends Controller {
     * @return \Illuminate\Http\Response
     */
 
-    public function store( Request $request ) {
-        //
+    public function store(Request $request) {
+        $request->validate([
+            'title' => 'required|max:20',
+            'description' => 'required|max:100',
+            'thumbnail' => 'image|max:1024',
+            'grade_id' => 'required|integer',
+        ]);
+
+        $curriculum = new Curriculum;
+        $curriculum->title = $request->input('title');
+        $curriculum->description = $request->input('description');
+        $curriculum->grade_id = $request->input('grade_id');
+
+        if ($request->hasFile('thumbnail')) {
+            $name = $request->file('thumbnail')->getClientOriginalName();
+            $request->file('thumbnail')->move('storage/images', $name);
+            $curriculum->thumbnail = $name;
+        }
+
+        $curriculum->save();
+
+        return redirect()->route('curriculums.index')->with('success', 'カリキュラムを登録しました');
     }
+
 
     /**
     * Display the specified resource.
@@ -60,8 +78,12 @@ class CurriculumController extends Controller {
     * @return \Illuminate\Http\Response
     */
 
-    public function edit( Curriculum $curriculum ) {
-        //
+    public function edit($id) {
+        $curriculum = Curriculum::find($id);
+        if (!$curriculum) {
+            abort(404, 'カリキュラムが見つかりません: ID = ' . $id);
+        }
+        return view('culliculum_edit', compact('curriculum'));
     }
 
     /**
@@ -72,8 +94,31 @@ class CurriculumController extends Controller {
     * @return \Illuminate\Http\Response
     */
 
-    public function update( Request $request, Curriculum $curriculum ) {
-        //
+    public function update(Request $request, Curriculum $curriculum) {
+        $request->validate([
+            'title' => 'required|max:20',
+            'description' => 'required|max:100',
+            'thumbnail' => 'image|max:1024',
+            'grade_id' => 'required|integer',
+        ]);
+
+        $curriculum->title = $request->input('title');
+        $curriculum->description = $request->input('description');
+        $curriculum->grade_id = $request->input('grade_id');
+
+        if ($request->hasFile('thumbnail')) {
+            if ($curriculum->thumbnail) {
+                \Storage::delete('public/images/' . $curriculum->thumbnail);
+            }
+
+            $name = $request->file('thumbnail')->getClientOriginalName();
+            $request->file('thumbnail')->move('storage/images', $name);
+            $curriculum->thumbnail = $name;
+        }
+
+        $curriculum->save();
+
+        return redirect()->route('curriculums.index')->with('success', 'カリキュラムを更新しました');
     }
 
     /**

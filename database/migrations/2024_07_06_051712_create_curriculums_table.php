@@ -19,9 +19,11 @@ return new class extends Migration
             $table->string('thumbnail')->nullable();
             $table->longText('description')->nullable();
             $table->mediumText('video_url')->nullable();
-            $table->tinyInteger('alway_delivery_flg');
             $table->integer('grade_id');
             $table->timestamps();
+            // 追記
+            $table->boolean('alway_delivery_flg')->default(false);
+
         });
     }
 
