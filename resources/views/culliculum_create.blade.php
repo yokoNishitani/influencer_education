@@ -36,7 +36,7 @@
         <dt style=" width: 30%;"><label for="grade_id" class="form-label">学年</label></dt>
         <dd style=" width: 70%;"><input type="text" name="grade_id" class="form-control" placeholder="学年"></dd>
         @error('grade_id')
-            <span style="color:red; float: left;">学年を入力してください</span>
+            <span style="color:red; float: left;">学年を半角数字で入力してください</span>
         @enderror
     </dl>
 </div>
