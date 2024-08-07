@@ -3,7 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Curriculum;
+use App\Models\Grade; // Gradeモデルをインポート
+
 use Illuminate\Http\Request;
+
+
+use Illuminate\Support\Facades\Log;
+
 
 class CurriculumController extends Controller {
     /**
@@ -40,6 +46,7 @@ class CurriculumController extends Controller {
             'title' => 'required|max:20',
             'description' => 'required|max:100',
             'thumbnail' => 'image|max:1024',
+            'video_url' => 'nullable|max:255', 
             'grade_id' => 'required|integer',
         ]);
 
@@ -78,12 +85,16 @@ class CurriculumController extends Controller {
     * @return \Illuminate\Http\Response
     */
 
-    public function edit($id) {
+    public function edit($id)
+    {
         $curriculum = Curriculum::find($id);
         if (!$curriculum) {
             abort(404, 'カリキュラムが見つかりません: ID = ' . $id);
         }
-        return view('culliculum_edit', compact('curriculum'));
+
+        // Grades を取得
+        $grades = Grade::all();
+        return view('culliculum_edit', compact('curriculum', 'grades'));
     }
 
     /**
@@ -94,32 +105,39 @@ class CurriculumController extends Controller {
     * @return \Illuminate\Http\Response
     */
 
-    public function update(Request $request, Curriculum $curriculum) {
+
+    public function update(Request $request, Curriculum $curriculum)
+    {
         $request->validate([
             'title' => 'required|max:20',
             'description' => 'required|max:100',
             'thumbnail' => 'image|max:1024',
+            'video_url' => 'nullable|max:255', // ここが nullable になっていることを確認
             'grade_id' => 'required|integer',
         ]);
-
+    
+        // データの更新
         $curriculum->title = $request->input('title');
         $curriculum->description = $request->input('description');
         $curriculum->grade_id = $request->input('grade_id');
-
+        $curriculum->video_url = $request->input('video_url');
+    
         if ($request->hasFile('thumbnail')) {
             if ($curriculum->thumbnail) {
                 \Storage::delete('public/images/' . $curriculum->thumbnail);
             }
-
             $name = $request->file('thumbnail')->getClientOriginalName();
             $request->file('thumbnail')->move('storage/images', $name);
             $curriculum->thumbnail = $name;
         }
-
+    
         $curriculum->save();
-
+    
         return redirect()->route('curriculums.index')->with('success', 'カリキュラムを更新しました');
     }
+    
+    
+    
 
     /**
     * Remove the specified resource from storage.

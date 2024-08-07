@@ -12,7 +12,17 @@
         </div>
     </div>
 
-    <div style="width: 70%; margin: 0 auto;"> <!-- フォーム全体の幅を70%に設定 -->
+    <div style="width: 70%; margin: 0 auto;">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <form action="{{ route('curriculums.update', $curriculum->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
@@ -32,25 +42,31 @@
                 </div>
             </div>
 
-            <!-- 学年 -->
-            <div class="mb-3">
-                <dl style="display: flex; flex-wrap: wrap; margin-top: 60px; margin-bottom: 1rem;">
-                    <dt style="width: 30%;"><label for="title" class="form-label">学年</label></dt>
-                    <dd style="width: 70%;"><input type="text" name="title" value="{{ $curriculum->title }}" class="form-control" placeholder="学年"></dd>
-                    @error('title')
-                        <span style="color: red; float: left;">学年を20文字以内で入力してください</span>
-                    @enderror
-                </dl>
-            </div>
+<!-- 学年 -->
+<div class="mb-3">
+    <dl style="display: flex; flex-wrap: wrap; margin-top: 60px; margin-bottom: 1rem;">
+        <dt style="width: 30%;"><label for="grade" class="form-label">学年</label></dt>
+        <dd style="width: 70%;">
+            <select name="grade_id" id="grade" class="form-select">
+                <option value="">学年を選択してください</option>
+                @foreach ($grades as $grade)
+                    <option value="{{ $grade->id }}" @if($grade->id == $curriculum->grade_id) selected @endif>
+                        {{ $grade->name }}
+                    </option>
+                @endforeach
+            </select>
+        </dd>
+        @error('grade_id')
+            <span style="color:red;">学年を選択してください</span>
+        @enderror
+    </dl>
+</div>
 
             <!-- 授業名 -->
             <div class="mb-3">
                 <dl style="display: flex; flex-wrap: wrap; margin-top: 60px; margin-bottom: 1rem;">
-                    <dt style="width: 30%;"><label for="title" class="form-label">授業名</label></dt>
-                    <dd style="width: 70%;"><input type="text" name="title" value="{{ $curriculum->title }}" class="form-control" placeholder="授業名"></dd>
-                    @error('title')
-                        <span style="color: red; float: left;">授業名を20文字以内で入力してください</span>
-                    @enderror
+                    <dt style="width: 30%;"><label for="course_name" class="form-label">授業名</label></dt>
+                    <dd style="width: 70%;"><input id="course_name" type="text" name="title" value="{{ $curriculum->title }}" class="form-control" placeholder="授業名"></dd>
                 </dl>
             </div>
 
@@ -58,10 +74,7 @@
             <div class="mb-3">
                 <dl style="display: flex; flex-wrap: wrap; margin-top: 60px; margin-bottom: 1rem;">
                     <dt style="width: 30%;"><label for="video_url" class="form-label">動画URL</label></dt>
-                    <dd style="width: 70%;"><input type="text" name="video_url" value="{{ $curriculum->video_url }}" class="form-control" placeholder="動画URL"></dd>
-                    @error('video_url')
-                        <span style="color: red; float: left;">動画URLを20文字以内で入力してください</span>
-                    @enderror
+                    <dd style="width: 70%;"><input id="video_url" type="text" name="video_url" value="{{ $curriculum->video_url }}" class="form-control" placeholder="動画URL"></dd>
                 </dl>
             </div>
 
@@ -69,10 +82,7 @@
             <div class="mb-3">
                 <dl style="display: flex; flex-wrap: wrap; margin-bottom: 1rem;">
                     <dt style="width: 30%;"><label for="description" class="form-label">授業概要</label></dt>
-                    <dd style="width: 70%;"><textarea class="form-control" style="height: 100px;" name="description" placeholder="授業概要">{{ $curriculum->description }}</textarea></dd>
-                    @error('description')
-                        <span style="color: red; float: left;">授業概要を100文字以内で入力してください</span>
-                    @enderror
+                    <dd style="width: 70%;"><textarea id="description" class="form-control" style="height: 100px;" name="description" placeholder="授業概要">{{ $curriculum->description }}</textarea></dd>
                 </dl>
             </div>
 
