@@ -1,0 +1,30 @@
+* {
+    box-sizing: border-box;
+}
+
+main {
+    margin-left: 20px;
+}
+
+a {
+    display: block;
+}
+
+h1 {
+    margin-top: 20px;
+    font-size: 32px;
+}
+
+.back {
+    margin-top: 10px;
+}
+
+.back a {
+    color: #333;
+    text-decoration: none;
+}
+
+.back a::before {
+    content: "←";
+    display: inline-block;
+}

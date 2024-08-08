@@ -1,6 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
+use App\Http\Controllers\Admin\ArticleController;
+use App\Http\Controllers\User\ArticleController as UserArticleController;
+use App\Http\Controllers\User\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +20,30 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function() {
+    //TOP（仮）
+    Route::get('/top', [ArticleController::class, 'showAdminTop'])->name('show.top');
+
+    //管理画面_お知らせ一覧、新規登録
+    Route::get('/article_list', [ArticleController::class, 'showArticleList'])->name('show.article.list');
+    Route::get('/article_create', [ArticleController::class, 'showArticleCreate'])->name('show.article.create');
+    Route::post('/article_create', [ArticleController::class, 'showArticleStore'])->name('show.article.store');
+    Route::post('/article_edit/{id}', [ArticleController::class, 'showArticleUpdate'])->name('show.article.update');
+    Route::delete('/article_list/{id}', [ArticleController::class, 'showArticleRemove'])->name('show.article.remove');
+
+    //管理画面_お知らせ設定
+    Route::get('/article_edit/{id}', [ArticleController::class, 'showArticleEdit'])->name('show.article.edit');
+});
+
+Route::prefix('user')->namespace('User')->name('user.')->group(function() {
+    //TOP（仮）
+    Route::get('/top', [UserArticleController::class, 'showUserTop'])->name('show.top');
+
+    //ユーザー画面_お知らせ
+    Route::get('/article/{id}', [UserArticleController::class, 'showArticle'])->name('show.article');
+
+    //ユーザー画面_プロフィール変更
+    Route::get('/profile_edit', [ProfileController::class, 'showProfileForm'])->name('show.profile');
 });
