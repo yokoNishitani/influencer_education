@@ -38,6 +38,8 @@ Route::put('/culliculum_update/{id}', [CurriculumController::class, 'update'])->
 
 // 配信日時設定用
 Route::get('/delivery', [DeliveryController::class, 'index'])->name('delivery.index');
+Route::post('/delivery', [DeliveryController::class, 'store'])->name('delivery.store');
+
 
 
 

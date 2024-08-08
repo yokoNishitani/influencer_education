@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Curriculum;
 use App\Models\Grade; // Gradeモデルをインポート
+use App\Models\DeliveryTime; // DeliveryTimeモデルをインポート
+
 
 use Illuminate\Http\Request;
 
@@ -20,7 +22,9 @@ class CurriculumController extends Controller {
 
     public function index() {
         $curriculums = Curriculum::all();
-        return view( 'culliculum_list', compact( 'curriculums' ) );
+        $delivery_times = DeliveryTime::all();
+
+        return view( 'culliculum_list', compact( 'curriculums','delivery_times' ) );
     }
 
     /**
@@ -54,6 +58,8 @@ class CurriculumController extends Controller {
         $curriculum->title = $request->input('title');
         $curriculum->description = $request->input('description');
         $curriculum->grade_id = $request->input('grade_id');
+        $curriculum->video_url = $request->input('video_url');
+
 
         if ($request->hasFile('thumbnail')) {
             $name = $request->file('thumbnail')->getClientOriginalName();
