@@ -15,7 +15,7 @@ class CurriculumsSeeder extends Seeder {
     */
 
     public function run() {
-        Curriculum::factory()->count( 30 )->create();
+        Curriculum::factory()->count( 10 )->create();
 
     }
 }
