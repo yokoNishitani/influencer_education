@@ -1,0 +1,82 @@
+h1 {
+    margin-bottom: 50px;
+}
+
+/* profile_edit.blade.php */
+.form__profile-edit div {
+    display: flex;
+}
+
+.form__profile-edit div:last-of-type {
+    margin-bottom: 50px;
+}
+
+.form__profile-edit div label {
+    display: block;
+    margin-top: 15px;
+    padding: 2px;
+    width: 20%;
+}
+
+.form__profile-edit div input {
+    margin-top: 15px;
+    padding: 2px;
+    width: 50%;
+}
+
+.form__profile-edit div button {
+    margin-top: 15px;
+    padding: 2px;
+    width: 20%;
+    border: 1px solid #333;
+    border-radius: 2px;
+    background-color: #fff;
+}
+
+.form__profile-edit div button a {
+    color: #333;
+    text-decoration: none;
+}
+
+.btn__user-profile-update {
+    display: block;
+    margin: 0 auto;
+    padding: 2px 5px;
+    width: 100px;
+    border: none;
+    color: #fff;
+    background-color: #f26b4a;
+    cursor: pointer;
+}
+
+/* password_edit.blade.php */
+.form__password-edit div {
+display: flex;
+}
+
+.form__password-edit div:last-of-type {
+    margin-bottom: 50px;
+}
+
+.form__password-edit div label {
+    margin-top: 15px;
+    padding: 2px;
+    width: 20%;
+}
+
+.form__password-edit div input {
+    margin-top: 15px;
+    padding: 2px;
+    width: 40%;
+}
+
+.btn__change-password {
+    display: block;
+    margin: 0 auto;
+    padding: 2px 5px;
+    width: 100px;
+    border: none;
+    color: #fff;
+    background-color: #f26b4a;
+    cursor: pointer;
+}

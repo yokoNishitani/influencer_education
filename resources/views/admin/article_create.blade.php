@@ -12,7 +12,7 @@
 </div>
 <h1>お知らせ登録</h1>
 
-<form action="{{ route('admin.show.article.store') }}" class="article__form" method="POST"'>
+<form action="{{ route('admin.show.article.store') }}" class="article__form" method="POST">
             @csrf
             <div class="input-form">
                 <label>投稿日時</label>

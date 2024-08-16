@@ -18,11 +18,15 @@ use App\Http\Controllers\User\ProfileController;
 |
 */
 
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function() {
+Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
     //TOP（仮）
     Route::get('/top', [ArticleController::class, 'showAdminTop'])->name('show.top');
 
@@ -37,13 +41,19 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function() {
     Route::get('/article_edit/{id}', [ArticleController::class, 'showArticleEdit'])->name('show.article.edit');
 });
 
-Route::prefix('user')->namespace('User')->name('user.')->group(function() {
+Route::prefix('user')->namespace('User')->name('user.')->group(function () {
     //TOP（仮）
     Route::get('/top', [UserArticleController::class, 'showUserTop'])->name('show.top');
 
     //ユーザー画面_お知らせ
     Route::get('/article/{id}', [UserArticleController::class, 'showArticle'])->name('show.article');
 
-    //ユーザー画面_プロフィール変更
-    Route::get('/profile_edit', [ProfileController::class, 'showProfileForm'])->name('show.profile');
+    Route::middleware('auth')->group(function () {
+        //ユーザー画面_プロフィール変更
+        Route::get('/profile_edit', [ProfileController::class, 'showProfileForm'])->name('show.profile');
+        Route::post('/profile_edit', [ProfileController::class, 'showProfileEdit']);
+
+        Route::get('/password_edit', [ProfileController::class, 'showPasswordForm'])->name('show.password.edit');
+        Route::post('/password_edit', [ProfileController::class, 'showPasswordEdit']);
+    });
 });

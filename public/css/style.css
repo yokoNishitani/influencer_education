@@ -28,3 +28,7 @@ h1 {
     content: "←";
     display: inline-block;
 }
+
+.validation-comment {
+    margin-top: 3px;
+}
