@@ -32,7 +32,4 @@ return new class extends Migration
         Schema::dropIfExists('classes_clear_checks');
     }
 };
-<<<<<<< HEAD
 
-=======
->>>>>>> a45e389 (nishitani_migration_7/20)
