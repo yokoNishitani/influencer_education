@@ -8,13 +8,13 @@
             </div>
 
             <div class="text-left">
-                <h1>配信日時設定delivery.blade.php</h1>
+                <h1>配信日時設定 delivery.blade.php</h1>
                 <h2>タイトルが入る</h2>
             </div>
         </div>
     </div>
 
-    <form action="{{ route('delivery.store') }}" method="POST">
+    <form action="{{ route('delivery.store', ['curriculums_id' => $curriculums_id]) }}" method="POST">
         @csrf
         <input type="hidden" name="curriculums_id" value="{{ $curriculums_id }}">
 
@@ -36,42 +36,43 @@
                     </div>
                 @endif
 
-                <div class="row mb-2">
-                    <div class="col">
-                        <input type="date" id="date_from" name="date_from" class="form-control" placeholder="年月日" aria-label="年月日">
-                    </div>
-
-                    <div class="col">
-                        <input type="time" id="time_from" name="time_from" class="form-control" placeholder="時間" aria-label="時間">
-                    </div>
-
-                    <div class="col">
-                        <p>　～　</p>
-                    </div>
-
-                    <div class="col">
-                        <input type="date" id="date_to" name="date_to" class="form-control" placeholder="年月日" aria-label="年月日">
-                    </div>
-
-                    <div class="col">
-                        <input type="time" id="time_to" name="time_to" class="form-control" placeholder="時間" aria-label="時間">
-                    </div>
-
-                    <div class="col">
-                        <button type="button" class="btn btn-danger rounded-circle remove-row">ー</button>
-                    </div>
+                <div class="col">
+                    <input type="date" name="delivery_from_date[]" class="form-control" placeholder="年月日" aria-label="年月日">
                 </div>
-            </div>
 
-            <div class="pull-right" style="text-align:left;">
-                <button type="button" class="btn btn-success rounded-circle" id="add-row">＋</button>
+                <div class="col">
+                    <input type="time" name="delivery_from_time[]" class="form-control" placeholder="時間" aria-label="時間">
+                </div>
+
+                <div class="col">
+                    <p>　～　</p>
+                </div>
+
+                <div class="col">
+                    <input type="date" name="delivery_to_date[]" class="form-control" placeholder="年月日" aria-label="年月日">
+                </div>
+
+                <div class="col">
+                    <input type="time" name="delivery_to_time[]" class="form-control" placeholder="時間" aria-label="時間">
+                </div>
+
+                <div class="col">
+                    <button type="button" class="btn btn-danger rounded-circle remove-row">ー</button>
+                </div>
             </div>
         </div>
 
-        <div class="pull-right" style="text-align:center;">
+        <div class="text-right">
+            <button type="button" class="btn btn-success rounded-circle" id="add-row">＋</button>
+        </div>
+
+        <div class="text-right">
             <button type="submit" class="btn btn-primary btn-lg mt-2">登録</button>
         </div>
     </form>
+
+    <!-- jQueryの読み込み -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- クリックイベントで配信日時入力欄の増減 -->
     <script>
@@ -80,19 +81,19 @@
             var newRow = `
                 <div class="row mb-2">
                     <div class="col">
-                        <input type="date" name="date_from[]" class="form-control" placeholder="年月日" aria-label="年月日">
+                        <input type="date" name="delivery_from_date[]" class="form-control" placeholder="年月日" aria-label="年月日">
                     </div>
                     <div class="col">
-                        <input type="time" name="time_from[]" class="form-control" placeholder="時間" aria-label="時間">
+                        <input type="time" name="delivery_from_time[]" class="form-control" placeholder="時間" aria-label="時間">
                     </div>
                     <div class="col">
                         <p>　～　</p>
                     </div>
                     <div class="col">
-                        <input type="date" name="date_to[]" class="form-control" placeholder="年月日" aria-label="年月日">
+                        <input type="date" name="delivery_to_date[]" class="form-control" placeholder="年月日" aria-label="年月日">
                     </div>
                     <div class="col">
-                        <input type="time" name="time_to[]" class="form-control" placeholder="時間" aria-label="時間">
+                        <input type="time" name="delivery_to_time[]" class="form-control" placeholder="時間" aria-label="時間">
                     </div>
                     <div class="col">
                         <button type="button" class="btn btn-danger rounded-circle remove-row">ー</button>
@@ -106,6 +107,5 @@
             $(this).closest('.row').remove();
         });
     });
-</script>
-
+    </script>
 @endsection

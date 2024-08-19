@@ -24,9 +24,9 @@ class Curriculum extends Model {
         return $this->belongsTo( Grade::class );
     }
 
-    public function delivery_times() {
-        return $this->hasMany( DeliveryTime::class );
+    public function deliveryTimes()
+    {
+        return $this->hasMany(DeliveryTime::class, 'curriculums_id');
     }
-
 
 }

@@ -1,46 +1,89 @@
 @extends('app')
-  
+
 @section('content')
     <div class="row">
         <div class="col-lg-12">
-            <div class="text-left">
-                <h2 style="font-size:1rem;">授業一覧culliculum_list.blade.php</h2>
-            </div>
             <div class="text-right">
-            <a class="btn btn-success" href="#">新規登録</a>
+                <a class="btn btn-success" href="{{ url('/culliculum_create') }}">新規登録</a>
+            </div>
+            <div class="text-left">
+                <h1>授業一覧</h1>
             </div>
         </div>
     </div>
 
+    <div class="container">
+        <div class="row">
+            <!-- 左側部分 -->
+            <div class="col-2">
+                @foreach($grades as $grade)
+                    <button type="button" class="btn btn-primary" data-grade-id="{{ $grade->id }}">{{ $grade->name }}</button>
+                @endforeach
+            </div>
 
-    <!-- 一覧パーツ -->
-    <h1>一覧表示</h1>
+            <!-- 右側部分 -->
+            <div class="col-10">
+                <h1 id="selected-grade-name">すべての授業</h1> <!-- 選択された学年を表示する部分 -->
+                <div class="row">
+                    @foreach($curriculums as $curriculum)
+                        <div class="col-md-4 mb-4 curriculum-card" data-grade-id="{{ $curriculum->grade_id }}">
+                            <div class="card">
+                                <table border="1" class="table">
+                                    <tr>
+                                        <td class="table-img">
+                                            @if($curriculum->thumbnail)
+                                                <img src="{{ asset('storage/images/'.$curriculum->thumbnail) }}" class="mx-auto" style="width:100%;">
+                                            @endif
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><h4>{{ $curriculum->title }}</h4></td>
+                                    </tr>
 
+                                    <!-- 配信日時表示 -->
+                                    @foreach($delivery_times->where('curriculums_id', $curriculum->id) as $delivery_time)
+                                        <tr>
+                                            <td>{{ \Carbon\Carbon::parse($delivery_time->delivery_from)->format('m/d') }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($delivery_time->delivery_from)->format('H:i') }} - {{ \Carbon\Carbon::parse($delivery_time->delivery_to)->format('H:i') }}</td>
+                                        </tr>
+                                    @endforeach
 
-    <table>
-    <tr>
-    <th>ID</th>
-    <th>タイトル</th>
-    <th>サムネイル</th>
-    <th>説明文</th>
-    <th>動画URL</th>
-    <th>常時公開フラグ</th>
-    <th>クラスID</th>
-    </tr>
-    @foreach($curriculums as $curriculum)
+                                    <tr>
+                                        <td><a class="btn btn-success" href="{{ route('curriculums.edit', $curriculum->id) }}">授業内容編集</a></td>
+                                        <td><a href="{{ route('delivery.index', ['curriculums_id' => $curriculum->id]) }}" class="btn btn-primary">配信日時設定</a></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <tr>
-    <td>{{$curriculum->id}}</td>
-    <td>{{$curriculum->title}}</td>
-    <td>{{$curriculum->thumbnail}}</td>
-    <td>{{$curriculum->description}}</td>
-    <td>{{$curriculum->video_url}}</td>
-    <td>{{$curriculum->alway_delivery_flg}}</td>
-    <td>{{$curriculum->grade_id}}</td>
-    </tr>
-    @endforeach
-    </table>    
- 
+    <!-- JavaScript で学年ボタンのクリックイベントを処理 -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const gradeButtons = document.querySelectorAll('.btn-primary[data-grade-id]');
+        const selectedGradeName = document.getElementById('selected-grade-name');
+        
+        gradeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const gradeId = this.getAttribute('data-grade-id');
+                const gradeName = this.textContent; // ボタンのテキスト（学年名）を取得
+                
+                // カードの表示を更新
+                document.querySelectorAll('.curriculum-card').forEach(card => {
+                    card.style.display = card.getAttribute('data-grade-id') === gradeId || gradeId === '' ? 'block' : 'none';
+                });
+
+                // 選択された学年名を表示
+                selectedGradeName.textContent = gradeName;
+            });
+        });
+
+        // 最初にすべての授業を表示する設定
+        document.querySelectorAll('.curriculum-card').forEach(card => card.style.display = 'block');
+    });
+    </script>
 @endsection
-
-

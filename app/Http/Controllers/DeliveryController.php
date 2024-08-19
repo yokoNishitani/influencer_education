@@ -17,12 +17,15 @@ class DeliveryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+
+    
+    public function index($curriculums_id)
     {
-        $curriculums_id = 1; // ここは適切なカリキュラムIDに置き換えます
-        $delivery_times = DeliveryTime::all();
+        $delivery_times = DeliveryTime::where('curriculums_id', $curriculums_id)->get();
         return view('delivery', compact('delivery_times', 'curriculums_id'));
     }
+    
+    
     
 
     /**
@@ -30,11 +33,11 @@ class DeliveryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($curriculums_id)
     {
-        $curriculums_id = 1; // 実際のIDまたは取得するロジック
         return view('delivery.create', compact('curriculums_id'));
     }
+    
     
     
 
@@ -50,30 +53,36 @@ class DeliveryController extends Controller
 
 
 
-public function store(Request $request)
-{
-    // デバッグ用
-    // dd($request->all());
-
-    $request->validate([
-        'curriculums_id' => 'required|exists:curriculums,id',
-        'date_from' => 'required|date',
-        'time_from' => 'required|date_format:H:i',
-        'date_to' => 'required|date',
-        'time_to' => 'required|date_format:H:i',
-    ]);
-
-    $deliveryFrom = $request->date_from . ' ' . $request->time_from;
-    $deliveryTo = $request->date_to . ' ' . $request->time_to;
-
-    DeliveryTime::create([
-        'curriculums_id' => $request->input('curriculums_id'),
-        'delivery_from' => $deliveryFrom,
-        'delivery_to' => $deliveryTo,
-    ]);
-
-    return back()->with('success', '配信時間の設定が成功しました.');
-}
+     public function store(Request $request)
+     {
+         // バリデーション
+         $request->validate([
+             'curriculums_id' => 'required|exists:curriculums,id',
+             'delivery_from_date.*' => 'required|date',
+             'delivery_from_time.*' => 'required|date_format:H:i',
+             'delivery_to_date.*' => 'required|date',
+             'delivery_to_time.*' => 'required|date_format:H:i',
+         ]);
+     
+         // フォームから送信された配列を処理
+         foreach ($request->delivery_from_date as $index => $deliveryFromDate) {
+             $deliveryFrom = $deliveryFromDate . ' ' . $request->delivery_from_time[$index];
+             $deliveryTo = $request->delivery_to_date[$index] . ' ' . $request->delivery_to_time[$index];
+     
+             // 新しいDeliveryTimeレコードを作成
+             DeliveryTime::create([
+                 'curriculums_id' => $request->input('curriculums_id'),
+                 'delivery_from' => $deliveryFrom,
+                 'delivery_to' => $deliveryTo,
+             ]);
+         }
+     
+         // 成功メッセージと共にリダイレクト
+         return back()->with('success', '配信時間の設定が成功しました.');
+     }
+     
+     
+     
      
 
 
@@ -99,10 +108,11 @@ public function store(Request $request)
      * @param  \App\Models\DeliveryTime  $deliveryTime
      * @return \Illuminate\Http\Response
      */
-    public function edit(DeliveryTime $deliveryTime)
+    public function edit($curriculums_id, DeliveryTime $deliveryTime)
     {
-        //
+        return view('delivery.edit', compact('curriculums_id', 'deliveryTime'));
     }
+    
 
     /**
      * Update the specified resource in storage.
@@ -111,10 +121,29 @@ public function store(Request $request)
      * @param  \App\Models\DeliveryTime  $deliveryTime
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DeliveryTime $deliveryTime)
+    public function update(Request $request, $curriculums_id, DeliveryTime $deliveryTime)
     {
-        //
+        $request->validate([
+            'delivery_from_date' => 'required|date',
+            'delivery_from_time' => 'required|date_format:H:i',
+            'delivery_to_date' => 'required|date',
+            'delivery_to_time' => 'required|date_format:H:i',
+        ]);
+    
+        // 日付と時間を結合
+        $deliveryFrom = $request->delivery_from_date . ' ' . $request->delivery_from_time;
+        $deliveryTo = $request->delivery_to_date . ' ' . $request->delivery_to_time;
+    
+        // 既存のDeliveryTimeレコードを更新
+        $deliveryTime->update([
+            'delivery_from' => $deliveryFrom,
+            'delivery_to' => $deliveryTo,
+        ]);
+    
+        // 成功メッセージと共にリダイレクト
+        return back()->with('success', '配信時間の更新が成功しました.');
     }
+    
 
     /**
      * Remove the specified resource from storage.
