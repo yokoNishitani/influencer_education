@@ -63,27 +63,27 @@
 
     <!-- JavaScript で学年ボタンのクリックイベントを処理 -->
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const gradeButtons = document.querySelectorAll('.btn-primary[data-grade-id]');
-        const selectedGradeName = document.getElementById('selected-grade-name');
-        
-        gradeButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const gradeId = this.getAttribute('data-grade-id');
-                const gradeName = this.textContent; // ボタンのテキスト（学年名）を取得
-                
-                // カードの表示を更新
-                document.querySelectorAll('.curriculum-card').forEach(card => {
-                    card.style.display = card.getAttribute('data-grade-id') === gradeId || gradeId === '' ? 'block' : 'none';
+        document.addEventListener('DOMContentLoaded', function() {
+            const gradeButtons = document.querySelectorAll('.btn-primary[data-grade-id]');
+            const selectedGradeName = document.getElementById('selected-grade-name');
+            
+            gradeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const gradeId = this.getAttribute('data-grade-id');
+                    const gradeName = this.textContent; // ボタンのテキスト（学年名）を取得
+                    
+                    // カードの表示を更新
+                    document.querySelectorAll('.curriculum-card').forEach(card => {
+                        card.style.display = card.getAttribute('data-grade-id') === gradeId || gradeId === '' ? 'block' : 'none';
+                    });
+
+                    // 選択された学年名を表示
+                    selectedGradeName.textContent = gradeName;
                 });
-
-                // 選択された学年名を表示
-                selectedGradeName.textContent = gradeName;
             });
-        });
 
-        // 最初にすべての授業を表示する設定
-        document.querySelectorAll('.curriculum-card').forEach(card => card.style.display = 'block');
-    });
+            // 最初にすべての授業を表示する設定
+            document.querySelectorAll('.curriculum-card').forEach(card => card.style.display = 'block');
+        });
     </script>
 @endsection

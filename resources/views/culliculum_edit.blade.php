@@ -24,10 +24,8 @@
         @endif
 
         <form action="{{ route('curriculums.update', $curriculum->id) }}" method="POST" enctype="multipart/form-data">
-
-    @csrf
-    @method('PUT')
-
+            @csrf
+            @method('PUT')
 
             <!-- サムネイル -->
             <div class="mb-3" style="display: flex; align-items: center; gap: 20px;">
@@ -48,28 +46,27 @@
                 </div>
             </div>
 
-    <!-- 学年 -->
-    <div class="mb-3">
-        <dl style="display: flex; flex-wrap: wrap; margin-bottom: 1rem;">
-            <dt style="width: 30%;"><label for="grade" class="form-label">学年</label></dt>
-            <dd style="width: 70%;">
-            <select name="grade_id" id="grade" class="form-select">
-    <option value="">学年を選択してください</option>
-    @foreach ($grades as $grade)
-        <option value="{{ $grade->id }}" @if($grade->id == $curriculum->grade_id) selected @endif>
-            {{ $grade->name }}
-        </option>
-    @endforeach
-</select>
-
-            </dd>
-            @error('grade_id')
-    <span style="color:red;">{{ $message }}</span>
-@enderror
-
-        </dl>
-    </div>
-
+            <!-- 学年 -->
+            <div class="mb-3">
+                <dl style="display: flex; flex-wrap: wrap; margin-bottom: 1rem;">
+                    <dt style="width: 30%;">
+                        <label for="grade" class="form-label">学年</label>
+                    </dt>
+                    <dd style="width: 70%;">
+                        <select name="grade_id" id="grade" class="form-select">
+                            <option value="">学年を選択してください</option>
+                            @foreach ($grades as $grade)
+                                <option value="{{ $grade->id }}" @if($grade->id == $curriculum->grade_id) selected @endif>
+                                    {{ $grade->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </dd>
+                    @error('grade_id')
+                        <span style="color:red;">{{ $message }}</span>
+                    @enderror
+                </dl>
+            </div>
 
             <!-- 授業名 -->
             <div class="mb-3">
@@ -107,19 +104,17 @@
                 </dl>
             </div>
 
-<!-- 常時公開フラグ -->
-<div class="mb-3">
-    <dl style="display: flex; flex-wrap: wrap; margin-bottom: 1rem;">
-        <dt style="width: 30%;">
-            <label for="alway_delivery_flg" class="form-label">常時公開</label>
-        </dt>
-        <dd style="width: 70%;">
-            <input id="alway_delivery_flg" type="checkbox" name="alway_delivery_flg" value="1" 
-                @if($curriculum->alway_delivery_flg) checked @endif>
-        </dd>
-    </dl>
-</div>
-
+            <!-- 常時公開フラグ -->
+            <div class="mb-3">
+                <dl style="display: flex; flex-wrap: wrap; margin-bottom: 1rem;">
+                    <dt style="width: 30%;">
+                        <label for="alway_delivery_flg" class="form-label">常時公開</label>
+                    </dt>
+                    <dd style="width: 70%;">
+                        <input id="alway_delivery_flg" type="checkbox" name="alway_delivery_flg" value="1" @if($curriculum->alway_delivery_flg) checked @endif>
+                    </dd>
+                </dl>
+            </div>
 
             <!-- ボタンここから -->
             <div class="pull-right" style="text-align: center;">
