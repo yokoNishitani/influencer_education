@@ -107,10 +107,19 @@
                 </dl>
             </div>
 
-            <!-- 常時公開ボタン -->
-            <div class="pull-right" style="text-align: center;">
-                <button type="submit" class="btn btn-primary btn-lg mt-2">常時公開ボタン</button>
-            </div>
+<!-- 常時公開フラグ -->
+<div class="mb-3">
+    <dl style="display: flex; flex-wrap: wrap; margin-bottom: 1rem;">
+        <dt style="width: 30%;">
+            <label for="alway_delivery_flg" class="form-label">常時公開</label>
+        </dt>
+        <dd style="width: 70%;">
+            <input id="alway_delivery_flg" type="checkbox" name="alway_delivery_flg" value="1" 
+                @if($curriculum->alway_delivery_flg) checked @endif>
+        </dd>
+    </dl>
+</div>
+
 
             <!-- ボタンここから -->
             <div class="pull-right" style="text-align: center;">

@@ -120,6 +120,8 @@ class CurriculumController extends Controller {
     public function update(Request $request, $id)
     {
         $curriculum = Curriculum::findOrFail($id);
+    
+        // バリデーション
         $request->validate([
             'title' => 'required|max:20',
             'description' => 'required|max:100',
@@ -127,12 +129,14 @@ class CurriculumController extends Controller {
             'video_url' => 'nullable|max:255',
             'grade_id' => 'required|integer',
         ]);
-        
+    
+        // フォームからの入力データをモデルに反映
         $curriculum->title = $request->input('title');
         $curriculum->description = $request->input('description');
         $curriculum->grade_id = $request->input('grade_id');
         $curriculum->video_url = $request->input('video_url');
-        
+        $curriculum->alway_delivery_flg = $request->input('alway_delivery_flg') ? 1 : 0;
+    
         if ($request->hasFile('thumbnail')) {
             if ($curriculum->thumbnail) {
                 \Storage::delete('public/images/' . $curriculum->thumbnail);
@@ -141,11 +145,12 @@ class CurriculumController extends Controller {
             $request->file('thumbnail')->move('storage/images', $name);
             $curriculum->thumbnail = $name;
         }
-        
+    
         $curriculum->save();
-        
+    
         return redirect()->route('curriculums.index')->with('success', 'カリキュラムを更新しました');
     }
+    
     
     
 
