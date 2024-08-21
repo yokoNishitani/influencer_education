@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\User\ArticleController as UserArticleController;
 use App\Http\Controllers\User\ProfileController;
+use App\Http\Controllers\User\ProgressController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,7 +54,14 @@ Route::prefix('user')->namespace('User')->name('user.')->group(function () {
         Route::get('/profile_edit', [ProfileController::class, 'showProfileForm'])->name('show.profile');
         Route::post('/profile_edit', [ProfileController::class, 'showProfileEdit']);
 
+        //ユーザー画面_パスワード変更
         Route::get('/password_edit', [ProfileController::class, 'showPasswordForm'])->name('show.password.edit');
         Route::post('/password_edit', [ProfileController::class, 'showPasswordEdit']);
+
+        //ユーザー画面_進捗
+        Route::get('/curriculum_progress', [ProgressController::class, 'showProgress'])->name('show.progress');
+
+        //配信(仮)
+        Route::get('/delivery/{id}', [ProgressController::class, 'showDelivery'])->name('show.delivery');
     });
 });

@@ -9,6 +9,7 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     @stack('css/user/user_article')
     @stack('css/user/user_profile')
+    @stack('css/user/user_progress')
     <title>@yield('title')</title>
 </head>
 

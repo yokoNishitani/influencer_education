@@ -91,7 +91,7 @@ class ArticleController extends Controller
             $article->delete();
             return response()->json(['success' => true]);
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => '削除に失敗しました。']);
+            return response()->json(['success' => false]);
         }
     }
 }

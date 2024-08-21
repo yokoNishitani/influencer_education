@@ -1,0 +1,74 @@
+.wrap__user {
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.user-name {
+    padding: 8px;
+}
+
+.wrap__user-grade {
+    display: flex;
+}
+
+.wrap__user-grade p:first-child {
+    padding: 8px;
+}
+
+.bg__user-grade {
+    padding: 8px;
+    color: #fff;
+    border: 0.5px solid #333;
+    border-radius: 50px;
+}
+
+.bg__user-grade.elementary {
+    background-color: #89e5f5;
+}
+
+.bg__user-grade.junior-high {
+    background-color: #77e5d4;
+}
+
+.bg__user-grade.high-school {
+    background-color: #94d058;
+}
+
+.wrap__curriculum {
+    width: 800px;
+    margin: 0 auto;
+    display: flex;
+    gap: 50px 100px;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.wrap__curriculum--grade {
+    padding: 10px;
+    width: 200px;
+}
+
+ul li {
+    list-style: none;
+    text-align: right;
+    margin-bottom: 8px;
+}
+
+ul li a {
+    display: inline-block;
+    text-decoration: none;
+    color: #333;
+    width: 80%;
+}
+
+.wrap__curriculum .bg__user-grade {
+    text-align: center;
+    width: 100px;
+    margin: 0 auto 15px;
+}
+
+.disabled {
+    pointer-events: none;
+    color: grey;
+}

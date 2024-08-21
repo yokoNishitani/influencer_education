@@ -42,7 +42,7 @@ class PasswordEditRequest extends FormRequest
             'current_password.current_password' => '▷:attributeが正しくありません。',
             'new_password.required' => '▷:attributeは必須項目です。',
             'new_password.string' => '▷:attributeは文字列でなければなりません。',
-            'new_password.min' => '▷:attributeは少なくとも8文字以上でなければなりません。',
+            'new_password.min' => '▷:attributeは8文字以上でなければなりません。',
             'new_password.confirmed' => '▷:attributeと確認用パスワードが一致しません。'
         ];
     }

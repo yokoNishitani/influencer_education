@@ -24,5 +24,16 @@ class UsersSeeder extends Seeder
             'grade_id' => 1
         ];
         DB::table('users')->insert($users_params);
+
+        $users_params = [
+            'id' => 2,
+            'name' => '花子',
+            'name_kana' =>'ハナコ',
+            'email' => 'hanako@aaa',
+            'password' => bcrypt('bbbbbbbb'),
+            'grade_id' => 1
+        ];
+        DB::table('users')->insert($users_params);
+        
     }
 }

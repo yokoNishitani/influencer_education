@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('curriculumus_id')->constrained('curriculums');
             $table->foreignId('users_id')->constrained('users');
-            $table->tinyInteger('clear_fig');
+            $table->tinyInteger('clear_flg');
             $table->timestamps();
         });
     }

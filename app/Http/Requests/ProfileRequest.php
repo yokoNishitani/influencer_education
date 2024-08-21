@@ -26,7 +26,7 @@ class ProfileRequest extends FormRequest
         return [
             'name' => 'required',
             'name_kana' => 'required | regex:/^[ア-ン゛゜ァ-ォャ-ョー]+$/u',
-            'email' => 'required | regex:/^[!-~]+$/'
+            'email' => 'required | regex:/^[!-~]+$/ | email'
         ];
     }
 
@@ -44,7 +44,8 @@ class ProfileRequest extends FormRequest
             'name_kana.required' => '▷:attributeは必須項目です。',
             'email.required' => '▷:attributeは必須項目です。',
             'name_kana.regex' => '▷:attributeはカナで入力してください。',
-            'email.regex' => '▷:attributeは半角英数で入力してください。'
+            'email.regex' => '▷:attributeは半角英数で入力してください。',
+            'email.email' => '▷:attributeは@を含めて入力してください'
         ];
     }
 }

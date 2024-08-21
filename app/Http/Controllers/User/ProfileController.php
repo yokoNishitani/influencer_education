@@ -14,6 +14,11 @@ class ProfileController extends Controller
     public function showProfileForm()
     {
         $user = Auth::user();
+
+        if (!$user->profile_image) {
+            $user->profile_image = 'storage/images/profile/no_image.jpg';
+        }
+
         return view('user.profile_edit', ['user' => $user]);
     }
 
@@ -37,7 +42,9 @@ class ProfileController extends Controller
                 $file->storeAs('public/images/profile', $fileName);
                 $user->profile_image = 'storage/images/profile/' . $fileName;
             } else {
-                $user->profile_image = 'storage/images/profile/no_image.jpg';
+                if (!$user->profile_image || $user->profile_image === 'storage/images/profile/no_image.jpg') {
+                    $user->profile_image = 'storage/images/profile/no_image.jpg';
+                }
             }
 
             $user->save();
@@ -51,7 +58,6 @@ class ProfileController extends Controller
 
     public function showPasswordForm()
     {
-
         return view('user.password_edit');
     }
 
@@ -59,12 +65,10 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
 
-        // 現在のパスワードが正しいか確認
         if (!Hash::check($request->current_password, $user->password)) {
-            return back()->withErrors(['current_password' => '現在のパスワードが正しくありません。']);
+            return back();
         }
 
-        // 新しいパスワードをハッシュ化して保存
         $user->password = Hash::make($request->new_password);
 
         /**
@@ -74,7 +78,7 @@ class ProfileController extends Controller
         try {
             $user->save();
         } catch (\Exception $e) {
-            return back()->with('error', 'パスワードの更新に失敗しました。');
+            return back();
         }
 
         return redirect()->route('user.show.profile');
