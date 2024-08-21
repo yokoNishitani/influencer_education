@@ -26,35 +26,47 @@
                 <h1 id="selected-grade-name">すべての授業</h1> <!-- 選択された学年を表示する部分 -->
                 <div class="row">
                     @foreach($curriculums as $curriculum)
-                        <div class="col-md-4 mb-4 curriculum-card" data-grade-id="{{ $curriculum->grade_id }}">
-                            <div class="card">
-                                <table border="1" class="table">
-                                    <tr>
-                                        <td class="table-img">
-                                            @if($curriculum->thumbnail)
-                                                <img src="{{ asset('storage/images/'.$curriculum->thumbnail) }}" class="mx-auto" style="width:100%;">
-                                            @endif
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><h4>{{ $curriculum->title }}</h4></td>
-                                    </tr>
+                        @php
+                            // 現在の日時を取得
+                            $currentDateTime = now();
 
-                                    <!-- 配信日時表示 -->
-                                    @foreach($delivery_times->where('curriculums_id', $curriculum->id) as $delivery_time)
+                            // 常時公開フラグが有効か、現在日時が配信期間内にあるかをチェック
+                            $isVisible = $curriculum->alway_delivery_flg || $delivery_times->where('curriculums_id', $curriculum->id)->contains(function($delivery_time) use ($currentDateTime) {
+                                return $currentDateTime->between($delivery_time->delivery_from, $delivery_time->delivery_to);
+                            });
+                        @endphp
+
+                        @if ($isVisible)
+                            <div class="col-md-4 mb-4 curriculum-card" data-grade-id="{{ $curriculum->grade_id }}">
+                                <div class="card">
+                                    <table border="1" class="table">
                                         <tr>
-                                            <td>{{ \Carbon\Carbon::parse($delivery_time->delivery_from)->format('m/d') }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($delivery_time->delivery_from)->format('H:i') }} - {{ \Carbon\Carbon::parse($delivery_time->delivery_to)->format('H:i') }}</td>
+                                            <td class="table-img">
+                                                @if($curriculum->thumbnail)
+                                                    <img src="{{ asset('storage/images/'.$curriculum->thumbnail) }}" class="mx-auto" style="width:100%;">
+                                                @endif
+                                            </td>
                                         </tr>
-                                    @endforeach
+                                        <tr>
+                                            <td><h4>{{ $curriculum->title }}</h4></td>
+                                        </tr>
 
-                                    <tr>
-                                        <td><a class="btn btn-success" href="{{ route('curriculums.edit', $curriculum->id) }}">授業内容編集</a></td>
-                                        <td><a href="{{ route('delivery.index', ['curriculums_id' => $curriculum->id]) }}" class="btn btn-primary">配信日時設定</a></td>
-                                    </tr>
-                                </table>
+                                        <!-- 配信日時表示 -->
+                                        @foreach($delivery_times->where('curriculums_id', $curriculum->id) as $delivery_time)
+                                            <tr>
+                                                <td>{{ \Carbon\Carbon::parse($delivery_time->delivery_from)->format('m/d') }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($delivery_time->delivery_from)->format('H:i') }} - {{ \Carbon\Carbon::parse($delivery_time->delivery_to)->format('H:i') }}</td>
+                                            </tr>
+                                        @endforeach
+
+                                        <tr>
+                                            <td><a class="btn btn-success" href="{{ route('curriculums.edit', $curriculum->id) }}">授業内容編集</a></td>
+                                            <td><a href="{{ route('delivery.index', ['curriculums_id' => $curriculum->id]) }}" class="btn btn-primary">配信日時設定</a></td>
+                                        </tr>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
+                        @endif
                     @endforeach
                 </div>
             </div>
