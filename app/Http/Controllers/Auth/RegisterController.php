@@ -7,6 +7,9 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Rules\Zenkaku;
+use App\Rules\Alphanumeric;
+
 
 class RegisterController extends Controller
 {
@@ -49,10 +52,16 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'name' => ['required', 'string', 'max:255', new Zenkaku],
+            'name_kana' => ['required', 'string', 'max:255', new Zenkaku],
+           'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed', ],
+        ], [
+            'required' => '全ての項目を入力してください。',
+            'password.confirmed' => 'パスワードと確認用パスワードが一致しません。',
+            'email.email' => 'メールアドレスの形式が無効です。',
         ]);
+        
     }
 
     /**
@@ -63,8 +72,11 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        dd($data);
+        
         return User::create([
             'name' => $data['name'],
+            'name_kana' => $data['name_kana'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);

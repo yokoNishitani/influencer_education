@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('name_kana');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->string('password');
-            $table->string('profile_image')->nullable();
+            $table->string('profile_image')->nullable(); 
             $table->integer('grade_id');
             $table->timestamps();
         });

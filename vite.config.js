@@ -6,7 +6,7 @@ export default defineConfig({
     plugins: [
         laravel({
             input: [
-                'resources/sass/app.scss',
+                'resources/css/app.css',
                 'resources/js/app.js',
             
             ],
@@ -14,4 +14,8 @@ export default defineConfig({
         }),
         react(),
     ],
+
+    build: {
+        manifest: true,
+    }, 
 });
