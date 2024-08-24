@@ -62,6 +62,7 @@ Route::prefix('user')->namespace('User')->name('user.')->group(function () {
         Route::get('/curriculum_progress', [ProgressController::class, 'showProgress'])->name('show.progress');
 
         //配信(仮)
-        Route::get('/delivery/{id}', [ProgressController::class, 'showDelivery'])->name('show.delivery');
+        Route::get('/delivery/{curriculumId}', [ProgressController::class, 'showDelivery'])->name('show.delivery');
+        Route::post('/delivery/{curriculumId}', [ProgressController::class, 'checkCurriculumClearFlg']);
     });
 });

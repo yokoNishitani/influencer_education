@@ -9,14 +9,13 @@ use Illuminate\Support\Facades\DB;
 
 class ArticleController extends Controller
 {
-        //トップページ（仮）user
-        public function showUserTop()
-        {
-            return view('user.top');
-        }
+    //トップページ（仮）user
+    public function showUserTop() {
+        return view('user.top');
+    }
 
-        public function showArticle($id)
-    {
+    //ユーザー画面_お知らせ
+    public function showArticle($id) {
         $article = Article::findOrFail($id);
         return view('user.article', compact('article'));
     }

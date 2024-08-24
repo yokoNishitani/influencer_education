@@ -12,7 +12,7 @@
 </div>
 <div class="wrap__user">
     <div>
-        <img src="{{ asset($users->profile_image) }}" alt="profile_image" width="100" height="auto">
+        <img src="{{ asset($user->profile_image) }}" alt="profile_image" width="100" height="auto">
     </div>
 
     <div>
@@ -61,7 +61,7 @@
         <ul>
             @foreach ($grade->curriculums as $curriculum)
             @php
-            $disabled = $grade->id > $users->grade_id ? 'disabled' : '';
+            $disabled = $grade->id > $user->grade_id ? 'disabled' : '';
             $completed = $curriculum->clear_flg ? '受講済' : '';
             @endphp
             <li>

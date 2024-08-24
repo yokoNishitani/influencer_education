@@ -11,8 +11,8 @@ use Illuminate\Support\Facades\DB;
 
 class ProfileController extends Controller
 {
-    public function showProfileForm()
-    {
+    //プロフィール画面表示
+    public function showProfileForm() {
         $user = Auth::user();
 
         if (!$user->profile_image) {
@@ -22,13 +22,11 @@ class ProfileController extends Controller
         return view('user.profile_edit', ['user' => $user]);
     }
 
-    public function showProfileEdit(ProfileRequest $request)
-    {
+    //プロフィール編集
+    public function showProfileEdit(ProfileRequest $request) {
         DB::beginTransaction();
         try {
-            /**
-             * @var \App\Models\User $user
-             */
+        /** @var User $user */
 
             $user = Auth::user();
 
@@ -49,20 +47,21 @@ class ProfileController extends Controller
 
             $user->save();
             DB::commit();
-            return redirect()->route('user.show.profile', ['user' => $user]);
+            return redirect()->route('user.show.profile', ['user' => $user])
+            ->with('status', '登録できました');
         } catch (\Exception $e) {
             DB::rollBack();
             return back();
         }
     }
 
-    public function showPasswordForm()
-    {
+    //パスワード編集画面表示
+    public function showPasswordForm() {
         return view('user.password_edit');
     }
 
-    public function showPasswordEdit(PasswordEditRequest $request)
-    {
+    //パスワード編集
+    public function showPasswordEdit(PasswordEditRequest $request) {
         $user = Auth::user();
 
         if (!Hash::check($request->current_password, $user->password)) {
@@ -70,10 +69,7 @@ class ProfileController extends Controller
         }
 
         $user->password = Hash::make($request->new_password);
-
-        /**
-         * @var \App\Models\User $user
-         */
+        /** @var User $user */
 
         try {
             $user->save();

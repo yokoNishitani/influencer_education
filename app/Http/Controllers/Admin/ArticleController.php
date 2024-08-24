@@ -12,14 +12,12 @@ class ArticleController extends Controller
 
 {
     //トップページ（仮）admin
-    public function showAdminTop()
-    {
+    public function showAdminTop() {
         return view('admin.top');
     }
 
     //管理画面_お知らせ一覧
-    public function showArticleList()
-    {
+    public function showArticleList() {
         $articles = Article::orderBy('posted_date', 'desc')
             ->orderBy('id', 'desc')
             ->get();
@@ -28,15 +26,13 @@ class ArticleController extends Controller
     }
 
     //管理画面_お知らせ新規登録（表示）
-    public function showArticleCreate()
-    {
+    public function showArticleCreate() {
         $articles = Article::all();
         return view('admin.article_create', compact('articles'));
     }
 
     // 管理画面_お知らせ新規登録（登録）
-    public function showArticleStore(ArticleRequest $request)
-    {
+    public function showArticleStore(ArticleRequest $request) {
         DB::beginTransaction();
         try {
             $article = new Article();
@@ -56,15 +52,13 @@ class ArticleController extends Controller
     }
 
     //管理画面_お知らせ設定（表示）
-    public function showArticleEdit($id)
-    {
+    public function showArticleEdit($id) {
         $article = Article::findOrFail($id);
         return view('admin.article_edit', compact('article'));
     }
 
     //管理画面_お知らせ設定（更新）
-    public function showArticleUpdate(ArticleRequest $request, $id)
-    {
+    public function showArticleUpdate(ArticleRequest $request, $id) {
         DB::beginTransaction();
         try {
             $article = Article::find($id);
@@ -84,8 +78,7 @@ class ArticleController extends Controller
     }
 
     //管理画面_お知らせ削除
-    public function showArticleRemove($id)
-    {
+    public function showArticleRemove($id) {
         try {
             $article = Article::findOrFail($id);
             $article->delete();

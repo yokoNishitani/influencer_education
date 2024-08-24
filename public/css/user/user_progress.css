@@ -18,9 +18,9 @@
 
 .bg__user-grade {
     padding: 8px;
-    color: #fff;
     border: 0.5px solid #333;
     border-radius: 50px;
+    color: #fff;
 }
 
 .bg__user-grade.elementary {
@@ -36,17 +36,27 @@
 }
 
 .wrap__curriculum {
-    width: 860px;
-    margin: 0 auto;
     display: flex;
     gap: 50px 100px;
     justify-content: space-evenly;
     flex-wrap: wrap;
+    width: 860px;
+    margin: 0 auto;
 }
 
 .wrap__curriculum--grade {
     padding: 10px;
     width: 220px;
+}
+
+.wrap__curriculum--grade .completed {
+    margin-right: 10px;
+    color: #dc5050;
+}
+
+.wrap__curriculum--grade .disabled {
+    pointer-events: none;
+    color: #999;
 }
 
 ul li {
@@ -62,17 +72,7 @@ ul li a {
 }
 
 .wrap__curriculum .bg__user-grade {
-    text-align: center;
     width: 100px;
+    text-align: center;
     margin: 0 auto 15px;
-}
-
-.completed {
-    color: #dc5050;
-    margin-right: 10px;
-}
-
-.disabled {
-    pointer-events: none;
-    color: #999;
 }

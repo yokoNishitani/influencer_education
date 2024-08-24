@@ -21,11 +21,10 @@ class PasswordEditRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             'current_password' => 'required | current_password',
-            'new_password' => 'required | string | min:8 | confirmed'
+            'new_password' => 'required | string | min:8 | regex:/^[!-~]+$/ | confirmed'
         ];
     }
 
@@ -43,6 +42,7 @@ class PasswordEditRequest extends FormRequest
             'new_password.required' => '▷:attributeは必須項目です。',
             'new_password.string' => '▷:attributeは文字列でなければなりません。',
             'new_password.min' => '▷:attributeは8文字以上でなければなりません。',
+            'new_password.regex' => '▷:attributeは半角英数入力してください',
             'new_password.confirmed' => '▷:attributeと確認用パスワードが一致しません。'
         ];
     }

@@ -21,8 +21,7 @@ class ProfileRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             'name' => 'required',
             'name_kana' => 'required | regex:/^[ア-ン゛゜ァ-ォャ-ョー]+$/u',

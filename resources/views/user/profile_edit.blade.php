@@ -15,8 +15,10 @@
     @csrf
     <div>
         <img src="{{ asset($user->profile_image) }}" alt="profile_image" width="100" height="auto">
-        <label class="label">プロフィール画像</label>
-        <input type="file" name="profile_image" id="profile_image">
+        <div>
+            <label class="label">プロフィール画像</label>
+            <input type="file" name="profile_image" id="profile_image">
+        </div>
     </div>
 
     <div>
@@ -48,6 +50,11 @@
     </div>
 
     <button type="submit" class="btn__user-profile-update">登録</button>
-</form>
 
+</form>
+@if (session('status'))
+<script>
+    alert('{{ session("status") }}');
+</script>
+@endif
 @endsection

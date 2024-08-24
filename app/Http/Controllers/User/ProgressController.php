@@ -4,35 +4,55 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use App\Models\Grade;
 use App\Models\Curriculum;
+use App\Models\CurriculumProgress;
+use App\Models\ClassesClearCheck;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
 
 class ProgressController extends Controller
 {
 
     //配信（仮）
-    public function showDelivery()
-    {
-        return view('user.delivery');
+    public function showDelivery($curriculumId) {
+        $curriculum = Curriculum::findOrFail($curriculumId);
+        return view('user.delivery', compact('curriculum'));
     }
 
-    public function showProgress()
-    {
-        $users = Auth::user();
-        $grades = Grade::with(['curriculums' => function ($query) use ($users) {
-            $query->leftJoin('curriculum_progress', function ($join) use ($users) {
+    //進捗画面表示
+    public function showProgress() {
+        $user = Auth::user();
+        $grades = Grade::with(['curriculums' => function ($query) use ($user) {
+            $query->leftJoin('curriculum_progress', function ($join) use ($user) {
                 $join->on('curriculums.id', '=', 'curriculum_progress.curriculums_id')
-                    ->where('curriculum_progress.users_id', '=', $users->id);
+                    ->where('curriculum_progress.users_id', '=', $user->id);
             })
                 ->select('curriculums.*', 'curriculum_progress.clear_flg');
         }])->orderBy('id')->get();
 
-        if (!$users->profile_image) {
-            $users->profile_image = 'storage/images/profile/no_image.jpg';
+        if (!$user->profile_image) {
+            $user->profile_image = 'storage/images/profile/no_image.jpg';
         }
 
-        return view('user.curriculum_progress', compact('grades', 'users'));
+        return view('user.curriculum_progress', compact('grades', 'user'));
+    }
+
+    //進捗〜受講済フラグ、全部の受講済フラグが1になったかの確認
+    public function checkCurriculumClearFlg($curriculumId) {
+
+        /** @var User $user */
+        $user = Auth::user();
+
+        CurriculumProgress::updateOrCreate(
+            ['users_id' => $user->id, 'curriculums_id' => $curriculumId],
+            ['clear_flg' => 1]
+        );
+
+        $user->checkGradeClearFlg();
+
+        return redirect()->back();
     }
 }
