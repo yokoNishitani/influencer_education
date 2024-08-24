@@ -45,6 +45,7 @@
     $gradeClass = '';
     $gradeName = $grade->name;
 
+    // 学年によるクラスの設定
     if (strpos($gradeName, '小学') === 0) {
     $gradeClass = 'elementary';
     } else if (strpos($gradeName, '中学') === 0) {
@@ -59,8 +60,16 @@
         <p class="bg__user-grade {{ $gradeClass }}">{{ $grade->name }}</p>
         <ul>
             @foreach ($grade->curriculums as $curriculum)
+            @php
+            $disabled = $grade->id > $users->grade_id ? 'disabled' : '';
+            $completed = $curriculum->clear_flg ? '受講済' : '';
+            @endphp
             <li>
-                <a href="{{ route('user.show.delivery', $curriculum->id) }}">{{ $curriculum->title }}
+                <a href="{{ !$disabled ? route('user.show.delivery', $curriculum->id) : '#' }}" class="{{ $disabled }}">
+                    @if ($completed)
+                    <span class="completed">{{ $completed }}</span>
+                    @endif
+                    {{ $curriculum->title }}
                 </a>
             </li>
             @endforeach

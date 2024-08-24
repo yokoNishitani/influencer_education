@@ -21,9 +21,13 @@ class ProgressController extends Controller
     public function showProgress()
     {
         $users = Auth::user();
-        $grades = Grade::with('curriculums')
-            ->orderBy('id')
-            ->get();
+        $grades = Grade::with(['curriculums' => function ($query) use ($users) {
+            $query->leftJoin('curriculum_progress', function ($join) use ($users) {
+                $join->on('curriculums.id', '=', 'curriculum_progress.curriculums_id')
+                    ->where('curriculum_progress.users_id', '=', $users->id);
+            })
+                ->select('curriculums.*', 'curriculum_progress.clear_flg');
+        }])->orderBy('id')->get();
 
         if (!$users->profile_image) {
             $users->profile_image = 'storage/images/profile/no_image.jpg';

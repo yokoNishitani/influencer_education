@@ -1,7 +1,7 @@
 .wrap__user {
     display: flex;
     align-items: center;
-    margin-bottom: 50px;
+    margin: 50px 0;
 }
 
 .user-name {
@@ -36,7 +36,7 @@
 }
 
 .wrap__curriculum {
-    width: 800px;
+    width: 860px;
     margin: 0 auto;
     display: flex;
     gap: 50px 100px;
@@ -46,7 +46,7 @@
 
 .wrap__curriculum--grade {
     padding: 10px;
-    width: 200px;
+    width: 220px;
 }
 
 ul li {
@@ -59,7 +59,6 @@ ul li a {
     display: inline-block;
     text-decoration: none;
     color: #333;
-    width: 80%;
 }
 
 .wrap__curriculum .bg__user-grade {
@@ -68,7 +67,12 @@ ul li a {
     margin: 0 auto 15px;
 }
 
+.completed {
+    color: #dc5050;
+    margin-right: 10px;
+}
+
 .disabled {
     pointer-events: none;
-    color: grey;
+    color: #999;
 }

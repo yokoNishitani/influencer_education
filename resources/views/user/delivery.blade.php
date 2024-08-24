@@ -5,5 +5,5 @@
 @section('content')
 
 <h1>授業配信(仮)</h1>
-<button class="">受講しました</button>
+
 @endsection
