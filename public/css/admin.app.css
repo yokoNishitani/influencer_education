@@ -1,0 +1,107 @@
+@charset "UTF-8";
+
+.container{
+    text-align:center
+}
+
+.adminHeader{
+    display: flow-root;
+    background-color: skyblue;
+    height: 150px;
+    margin: 0px 0px 50px;
+}
+
+.logout{
+    float: right;
+    color: white;
+    margin-top: 50px;
+}
+
+.card-header{
+    text-align: right;
+}
+
+.admin{
+    width: fit-content;
+    margin: auto;
+}
+
+button{
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    margin-left: 15px;
+    margin-right: 15px;
+    width: 70px;
+    cursor: pointer;
+}
+
+a{
+    text-decoration-line: none;
+    color: inherit;
+}
+
+.headerBtn{
+    background-color: rgb(48, 51, 51);
+    color: white;
+    width: 150px;
+    margin-top: 50px;
+}
+
+.btn-primary, .btnRegisterBanner{
+    background-color: rgb(48, 51, 51);
+    color: white;
+}
+
+.btnModoru{
+    background-color: transparent;
+    border: none;
+}
+
+.btnBannerSakujo{
+    font-size: 80px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    line-height: 10px;
+    width: 50px;
+    height: 50px;
+    padding-bottom: 15px;
+    cursor: pointer;
+}
+
+.btnAddBanner{
+    font-size: 50px;
+    background-color: green;
+    color: white;
+    border-radius: 50%;
+    line-height: 10px;
+    width: 50px;
+    height: 50px;
+    margin-right: 1000px;
+    cursor: pointer;
+}
+
+input{
+    width: 300px;
+    margin: 15px;
+}
+
+.top{
+    border: solid;
+    width: 700px;
+    margin: auto;
+}
+
+.bannerHeader{
+    text-align: left;
+}
+
+.bannerList{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+img{
+    width: 250px;
+}
