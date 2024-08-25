@@ -24,11 +24,9 @@ class Banner extends Model
 
     //登録処理
     public function registBanner($bannerId, $img_path) {
-        if ($bannerId) {
-            // 既存のバナーを更新
+        if($bannerId) {
             Banner::where('id', $bannerId)->update(['image' => $img_path]);
         } else {
-            // 新しいバナーを作成
             Banner::create(['image' => $img_path]);
         }
     }

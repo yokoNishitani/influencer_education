@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 @extends('admin.layouts.app')
+=======
+@extends('layouts.app')
+>>>>>>> d617656c259657ce65326b22ad36d8bf43685aff
 
 @section('content')
 <div class="container">

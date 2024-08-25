@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+<<<<<<< HEAD
 use App\Models\User;
+=======
+>>>>>>> d617656c259657ce65326b22ad36d8bf43685aff
 use App\Models\Grade;
 use App\Models\Curriculum;
 use App\Models\DeliveryTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+<<<<<<< HEAD
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
@@ -47,5 +51,18 @@ class CurriculumController extends Controller
         $user = Auth::user();
 
         return view('user.curriculum_list', compact('page', 'yyyy', 'mm', 'grades', 'curriculums', 'user'));
+=======
+
+class CurriculumController extends Controller
+{
+    public function showCurriculumList($id) {
+
+        $model = new Grade();
+        $grades = $model->showCurriculum($id);
+        $model_curriculum = new Curriculum();
+        $curriculums = $model_curriculum->getCurriculum();
+        
+        return view('curriculum_list', ['grades' => $grades, 'curriculums' => $curriculums]);
+>>>>>>> d617656c259657ce65326b22ad36d8bf43685aff
     }
 }

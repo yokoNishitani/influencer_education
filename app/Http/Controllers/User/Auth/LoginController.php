@@ -17,10 +17,13 @@ class LoginController extends Controller
     | to conveniently provide its functionality to your applications.
     |
     */
+<<<<<<< HEAD
     public function showLoginForm()
     {
         return view('user.auth.login');
     }
+=======
+>>>>>>> d617656c259657ce65326b22ad36d8bf43685aff
 
     use AuthenticatesUsers;
 
