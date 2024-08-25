@@ -6,10 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
-<<<<<<< HEAD
 use Illuminate\Http\Request;
-=======
->>>>>>> d617656c259657ce65326b22ad36d8bf43685aff
 
 class LoginController extends Controller
 {
@@ -24,15 +21,12 @@ class LoginController extends Controller
     |
     */
 
-<<<<<<< HEAD
   
     public function showLoginForm()
     {
         return view('admin.auth.login');
     }
 
-=======
->>>>>>> d617656c259657ce65326b22ad36d8bf43685aff
     //use AuthenticatesUsers;
     use AuthenticatesUsers {
         logout as performLogout;
@@ -43,11 +37,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-<<<<<<< HEAD
     protected $redirectTo = '/admin/top';
-=======
-    protected $redirectTo = '/admin/home';
->>>>>>> d617656c259657ce65326b22ad36d8bf43685aff
 
     /**
      * Create a new controller instance.
@@ -68,10 +58,6 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         $this->performLogout($request);
-<<<<<<< HEAD
         return redirect('admin/auth/login');
-=======
-        return redirect('admin/login');
->>>>>>> d617656c259657ce65326b22ad36d8bf43685aff
     }    
 }

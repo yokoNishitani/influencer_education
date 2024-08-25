@@ -22,22 +22,14 @@ class RegisterController extends Controller
     |
     */
 
-<<<<<<< HEAD
     use RegistersUsers;
-=======
-    use RegistersAdmins;
->>>>>>> d617656c259657ce65326b22ad36d8bf43685aff
 
     /**
      * Where to redirect users after registration.
      *
      * @var string
      */
-<<<<<<< HEAD
     protected $redirectTo = '/admin/top';
-=======
-    protected $redirectTo = '/admin/home';
->>>>>>> d617656c259657ce65326b22ad36d8bf43685aff
 
     /**
      * Create a new controller instance.
@@ -54,14 +46,11 @@ class RegisterController extends Controller
         return Auth::guard('admin');
     }
 
-<<<<<<< HEAD
     public function showRegisterForm()
     {
         return view('admin.auth.register');
     }
 
-=======
->>>>>>> d617656c259657ce65326b22ad36d8bf43685aff
     /**
      * Get a validator for an incoming registration request.
      *
@@ -72,10 +61,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-<<<<<<< HEAD
             'kana' => ['required', 'katakana', 'max:255'],
-=======
->>>>>>> d617656c259657ce65326b22ad36d8bf43685aff
             'email' => ['required', 'string', 'email', 'max:255', 'unique:admins'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -91,10 +77,7 @@ class RegisterController extends Controller
     {
         return Admin::create([
             'name' => $data['name'],
-<<<<<<< HEAD
             'kana' => $data['kana'],
-=======
->>>>>>> d617656c259657ce65326b22ad36d8bf43685aff
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
