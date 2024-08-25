@@ -34,3 +34,4 @@ Route::view('/user/password/reset', 'user/passwords/email');
 Route::post('/user/password/email', [App\Http\Controllers\User\ForgotPasswordController::class, 'sendResetLinkEmail']);
 Route::view('/user/password/reset/{token}', [App\Http\Controllers\aUser\ResetPasswordController::class,'showResetForm']);
 Route::post('/user/password/reset', [App\Http\Controllers\User\ResetPasswordController::class, 'reset']);
+Route::get('/top', [App\Http\Controllers\TestUserController::class, 'index'])->name('top');
