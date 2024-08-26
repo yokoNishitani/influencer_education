@@ -75,4 +75,10 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+    
+    protected function registered(Request $request, $user)
+    {
+        Auth::guard('user')->login($user);
+        return redirect()->route('login'); // ログイン画面へのリダイレクト
+    }
 }

@@ -4,7 +4,9 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Support\Facades\User;
+use Illuminate\Support\Facades\Auth; 
+use Illuminate\Http\Request;
+
 
 class LoginController extends Controller
 {
@@ -20,8 +22,10 @@ class LoginController extends Controller
     */
 
     //use AuthenticatesUsers;
-    use AuthenticatesUsers {                                        logout as performLogout;                            
-    } 
+
+    use AuthenticatesUsers {
+        logout as performLogout; 
+    }
 
     /**
      * Where to redirect users after login.
@@ -45,7 +49,13 @@ class LoginController extends Controller
     {                                                       //追記
         return Auth::guard('user');                        //追記
     }  
-
+    
+    /**
+     * カスタムログアウトメソッド
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     
     public function logout(Request $request)                //追記
     {                                                       //追記

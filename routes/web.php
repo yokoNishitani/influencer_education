@@ -20,18 +20,16 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::view('/user/login', 'user/login');
-Route::post('/user/login', [App\Http\Controllers\User\LoginController::class, 'login']);
-Route::post('user/logout', [App\Http\Controllers\User\LoginController::class,'logout']);
-Route::view('/user/register', 'user/register');
-Route::post('/user/register', [App\Http\Controllers\User\RegisterController::class, 'register']);
-Route::view('/user/home', 'user/home')->middleware('auth:user');
-Route::view('/user/password/reset', 'user/passwords/email');
-Route::post('/user/password/email', [App\Http\Controllers\User\ForgotPasswordController::class, 'sendResetLinkEmail']);
-Route::view('/user/password/reset/{token}', [App\Http\Controllers\aUser\ResetPasswordController::class,'showResetForm']);
-Route::post('/user/password/reset', [App\Http\Controllers\User\ResetPasswordController::class, 'reset']);
-Route::get('/top', [App\Http\Controllers\TestUserController::class, 'index'])->name('top');
+Route::get('/user/login', [LoginController::class, 'showLoginForm'])->name('user.login');
+Route::post('/user/login', [LoginController::class, 'login']);
+Route::post('/user/logout', [LoginController::class, 'logout'])->name('user.logout');
+Route::get('/user/register', [RegisterController::class, 'showRegistrationForm'])->name('user.register');
+Route::post('/user/register', [RegisterController::class, 'register']);
+Route::get('/user/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('user.password.request');
+Route::post('/user/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('user.password.email');
+Route::get('/user/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('user.password.reset');
+Route::post('/user/password/reset', [ResetPasswordController::class, 'reset']);
+// ユーザーホームルート
+Route::view('/user/home', 'user.home')->middleware('auth:user')->name('user.home');
+// トップページのルート
+Route::get('/top', [TestUserController::class, 'index'])->name('top');
