@@ -4,6 +4,7 @@ namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Grade;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -46,6 +47,12 @@ class RegisterController extends Controller
         return Auth::guard('user');           
     }
 
+    public function showRegistrationForm()
+    {
+        $grades = Grade::all(); // 学年を取得
+        return view('user.auth.register', compact('grades'));
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -58,6 +65,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'grade_id' => ['required', 'exists:grades,id'],
         ]);
     }
 
@@ -69,13 +77,16 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $defaultGradeId = Grade::first()->id;
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'grade_id' => $data['grade_id'],
         ]);
     }
-    
+
     protected function registered(Request $request, $user)
     {
         Auth::guard('user')->login($user);

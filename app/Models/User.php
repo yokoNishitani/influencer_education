@@ -23,6 +23,7 @@ class User extends Authenticatable
         'name_kana',
         'email',
         'password',
+        'grade_id',
     ];
 
     /**
