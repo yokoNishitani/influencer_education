@@ -67,20 +67,13 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="grade_id" class="col-md-4 col-form-label text-md-end">学年</label>
-                            <div class="col-md-6">
-                                <select id="grade_id" name="grade_id" class="form-control @error('grade_id') is-invalid @enderror" required>
-                                    @foreach($grades as $grade)
-                                        <option value="{{ $grade->id }}">{{ $grade->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('grade_id')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                            <div class="row mb-0">
+                                <div class="col-md-6 offset-md-4 text-center">
+                                    <button type="submit" class="btn btn-primary custom-button">
+                                        登録する
+                                    </button>
+                                </div>
                             </div>
-                        </div>
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4 text-center">

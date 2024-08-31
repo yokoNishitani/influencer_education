@@ -20,6 +20,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 // ユーザー認証関連ルート
 Route::get('/user/login', [LoginController::class, 'showLoginForm'])->name('user.login');
 Route::post('/user/login', [LoginController::class, 'login']);
@@ -39,4 +40,4 @@ Route::post('/user/password/reset', [ResetPasswordController::class, 'reset']);
 Route::view('/user/home', 'user.home')->middleware('auth:user')->name('user.home');
 
 // トップページのルート
-Route::get('/top', [TestUserController::class, 'index'])->name('top');
+Route::get('/top', [App\Http\Controllers\TestUserController::class, 'index'])->name('top');
