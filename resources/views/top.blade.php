@@ -5,35 +5,26 @@
     <header class="fixed-top bg-white shadow-sm">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-white">
-                <a class="navbar-brand" href="#">アプリ名</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
+                        <class="nav-item">
                             <a class="nav-link" href="#">時間割</a>
-                        </li>
-                        <li class="nav-item">
+                        <class="nav-item">
                             <a class="nav-link" href="#">授業進捗</a>
-                        </li>
-                        <li class="nav-item">
+                        <class="nav-item">
                             <a class="nav-link" href="#">プロフィール設定</a>
-                        </li>
                         @guest
-                            <li class="nav-item">
+                            <class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">ログイン</a>
-                            </li>
                         @else
-                            <li class="nav-item">
+                            <class="nav-item">
                                 <a class="nav-link" href="{{ route('logout') }}" 
                                    onclick="event.preventDefault();
                                    document.getElementById('logout-form').submit();">ログアウト</a>
                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>
-
-                            </li>
                         @endguest
                     </ul>
                 </div>

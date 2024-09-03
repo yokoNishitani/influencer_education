@@ -11,6 +11,8 @@ class TestUser extends Model
     public function index()
     {
         $articles = Article::all();
+        $banners = Banner::all();
+        
         return view('layouts.top', compact('articles'));
     }
 }
