@@ -17,13 +17,15 @@ class ProgressController extends Controller
 {
 
     //配信（仮）
-    public function showDelivery($curriculumId) {
+    public function showDelivery($curriculumId)
+    {
         $curriculum = Curriculum::findOrFail($curriculumId);
         return view('user.delivery', compact('curriculum'));
     }
 
     //進捗画面表示
-    public function showProgress() {
+    public function showProgress()
+    {
         $user = Auth::user();
         $grades = Grade::with(['curriculums' => function ($query) use ($user) {
             $query->leftJoin('curriculum_progress', function ($join) use ($user) {
@@ -41,7 +43,8 @@ class ProgressController extends Controller
     }
 
     //進捗〜受講済フラグ、全部の受講済フラグが1になったかの確認
-    public function checkCurriculumClearFlg($curriculumId) {
+    public function checkCurriculumClearFlg($curriculumId)
+    {
 
         /** @var User $user */
         $user = Auth::user();
@@ -51,8 +54,38 @@ class ProgressController extends Controller
             ['clear_flg' => 1]
         );
 
-        $user->checkGradeClearFlg();
+        DB::beginTransaction();
+        try {
+            $currentGradeCurriculums = Curriculum::where('grade_id', $user->grade_id)->get();
 
+            $curriculumProgresses = CurriculumProgress::where('users_id', $user->id)
+                ->whereIn('curriculums_id', $currentGradeCurriculums->pluck('id'))
+                ->get()
+                ->keyBy('curriculums_id');
+
+            $allCompleted = $currentGradeCurriculums->every(function ($curriculum) use ($curriculumProgresses) {
+                return isset($curriculumProgresses[$curriculum->id]) && $curriculumProgresses[$curriculum->id]->clear_flg === 1;
+            });
+
+            if ($allCompleted) {
+                $nextGrade = Grade::where('id', '>', $user->grade_id)->orderBy('id')->first();
+
+                if ($nextGrade) {
+                    $user->grade_id = $nextGrade->id;
+                    $user->save();
+
+                    ClassesClearCheck::updateOrCreate(
+                        ['users_id' => $user->id, 'grade_id' => $user->grade_id],
+                        ['clear_flg' => 1]
+                    );
+                }
+            }
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
         return redirect()->back();
     }
 }
