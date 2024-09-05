@@ -24,24 +24,22 @@ $(document).ready(function() {
         console.log('エラー');
       });
   });
+
+  //月の切り替えの非同期処理
+  $('.changeMonth').on('click', function(){
+    let page = $(this).data('page');
+    $.ajax({
+        url: '/user/curriculum_list',
+        type: 'GET',
+        data: { page: page },
+        })
+
+        .done(function(response) {
+          $('#app').html(response);
+        })
+    
+        .fail(function() {
+          console.log('エラー');
+        });
+    });
 });
-
-
-//月の切り替えの非同期処理
-$(document).on('click', '.changeMonth', function() {  
-  let page = $(this).data('page');
-  $.ajax({
-      url: '/user/curriculum_list',
-      type: 'GET',
-      data: { page: page },
-      })
-
-      .done(function(response) {
-        $('#app').html(response);
-      })
-  
-      .fail(function() {
-        console.log('エラー');
-      });
-});
-

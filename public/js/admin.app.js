@@ -28,11 +28,10 @@ $(document).on('click', '.btnAddBanner', function() {
 //バナー削除
 $(document).on('click', '.btnBannerSakujo', function() {
   let deleteConfirm = confirm('削除しますか？');
-  if(deleteConfirm == true) {
+  if(deleteConfirm) {
     let clickEle = $(this)
     let bannerID = clickEle.attr('data-banner_id');
-    let row = $(this).closest('tr').remove();
-    $(row).remove();
+    $(this).closest('tr').remove();
 
   $.ajax({
         headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
