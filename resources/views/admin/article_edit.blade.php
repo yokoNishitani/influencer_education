@@ -18,7 +18,8 @@
                 <label>投稿日時</label>
                 <input type="date" name="posted_date" value="{{ $article->posted_date }}">
             </div>
-            @if($errors->has('posted_date')) <p class="validation-comment">{{ $errors->first('posted_date') }}</p>
+            @if($errors->has('posted_date'))
+            <p class="validation-comment">{{ $errors->first('posted_date') }}</p>
     @endif
 
     <div class="input-form">
