@@ -4,29 +4,7 @@
 <div class="container">
     <header class="fixed-top bg-white shadow-sm">
         <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light bg-white">
-                
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ml-auto">
-                        <class="nav-item">
-                            <a class="nav-link" href="#">時間割</a>
-                        <class="nav-item">
-                            <a class="nav-link" href="#">授業進捗</a>
-                        <class="nav-item">
-                            <a class="nav-link" href="#">プロフィール設定</a>
-                        @guest
-                            <class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">ログイン</a>
-                        @else
-                            <class="nav-item">
-                                <a class="nav-link" href="{{ route('logout') }}" 
-                                   onclick="event.preventDefault();
-                                   document.getElementById('logout-form').submit();">ログアウト</a>
-                                   <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                        @endguest
-                    </ul>
+            <nav class="navbar navbar-expand-lg navbar-light bg-white"> 
                 </div>
             </nav>
         </div>
