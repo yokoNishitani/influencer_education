@@ -62,6 +62,10 @@ a{
     margin: 10px 80px 10px 50px;
 }
 
+.gradeBtn:disabled {
+    opacity: 0.5;
+}
+
 .elementaryschool{
     background-color: skyblue;
     color: white;

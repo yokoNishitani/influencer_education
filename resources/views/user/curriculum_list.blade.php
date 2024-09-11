@@ -7,9 +7,9 @@
         <div class="curriculumHeader">
             <a href="{{ route('user.show.top') }}" class="btnModoru">←戻る</a>
             <h2 class="schedule">
-                <button class="changeMonth" data-page="{{$page-1}}">◀</button>
+                <button class="changeMonth" data-page="{{$page-1}}" data-grade-id="{{ $grades->id }}">◀</button>
                 <p id="scheduleText">{{$yyyy}}年{{$mm}}月スケジュール</p>
-                <button class="changeMonth" data-page="{{$page+1}}">▶</button>
+                <button class="changeMonth" data-page="{{$page+1}}" data-grade-id="{{ $grades->id }}">▶</button>
                 @if($grades->id <= 6)
                     <button class="elementaryschool">{{ $grades->name }}</button>
                 @elseif($grades->id >= 10)
@@ -18,7 +18,7 @@
                     <button class="juniorhighschool">{{ $grades->name }}</button>
                 @endif
             </h2>
-            <div id="userGrade" data-grade-id="{{ $user->grade_id }}"></div>
+            <div id="userGrade" data-user-grade-id="{{ $user->grade_id }}"></div>
         </div>
         <div class="sidebar">
             @include('user.sidebar')

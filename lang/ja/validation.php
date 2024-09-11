@@ -65,7 +65,7 @@ return [
         'numeric' => 'The :attribute must be greater than or equal to :value.',
         'string' => 'The :attribute must be greater than or equal to :value characters.',
     ],
-    'image' => 'attributeは画像を選択してください。',
+    'image' => ':attributeは画像を選択してください。',
     'in' => 'The selected :attribute is invalid.',
     'in_array' => 'The :attribute field does not exist in :other.',
     'integer' => 'The :attribute must be an integer.',
@@ -73,7 +73,7 @@ return [
     'ipv4' => 'The :attribute must be a valid IPv4 address.',
     'ipv6' => 'The :attribute must be a valid IPv6 address.',
     'json' => 'The :attribute must be a valid JSON string.',
-    'katakana' => ':attributeはカタカナで入力してください。',
+    'katakana' => ':attributeは全角カタカナで入力してください。',
     'lowercase' => 'The :attribute must be lowercase.',
     'lt' => [
         'array' => 'The :attribute must have less than :value items.',
@@ -92,7 +92,7 @@ return [
         'array' => 'The :attribute must not have more than :max items.',
         'file' => 'The :attribute must not be greater than :max kilobytes.',
         'numeric' => 'The :attribute must not be greater than :max.',
-        'string' => 'The :attribute must not be greater than :max characters.',
+        'string' => ':attributeは:max文字以内で入力してください。',
     ],
     'max_digits' => 'The :attribute must not have more than :max digits.',
     'mimes' => 'The :attribute must be a file of type: :values.',
@@ -185,7 +185,7 @@ return [
         'kana' => 'カナ',
         'email' => 'メールアドレス',
         'password' => 'パスワード',
-        'image' => 'バナー画像',
+        'image.*' => 'バナー画像',
     ],
 
 ];

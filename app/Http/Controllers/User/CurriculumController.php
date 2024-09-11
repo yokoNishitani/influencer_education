@@ -22,7 +22,9 @@ class CurriculumController extends Controller
         $yyyy = $currentDate->year;
         $mm = $currentDate->month;
         
-        $gradeId = request()->input('grade_id', 1);
+        $user = Auth::user();
+        $userGradeId = $user->grade_id;
+        $gradeId = request()->input('grade_id', $userGradeId);
         $grades = Grade::find($gradeId);
         $deliveryFrom = Carbon::createFromDate($yyyy, $mm, 1)->startOfMonth();
         $deliveryTo = Carbon::createFromDate($yyyy, $mm, 1)->endOfMonth();
@@ -43,8 +45,6 @@ class CurriculumController extends Controller
                 }
             }
         }
-
-        $user = Auth::user();
 
         return view('user.curriculum_list', compact('page', 'yyyy', 'mm', 'grades', 'curriculums', 'user'));
     }

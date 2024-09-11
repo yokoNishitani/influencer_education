@@ -29,8 +29,8 @@
                         @endforeach
                     </tbody>
                 </table>
-                    @if($errors->has('image'))
-                        <strong>{{ $errors->first('image') }}</strong>
+                    @if($errors->has('image.*'))
+                        <strong>{{ $errors->first('image.*') }}</strong>
                     @endif
                 <div class="addBaneer">
                     <input type="button" class="btnAddBanner" value="+">

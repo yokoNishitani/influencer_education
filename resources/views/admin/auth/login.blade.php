@@ -13,7 +13,7 @@
                 <table>
                     <tr>
                         <th><label for="email" class="col-md-4 col-form-label text-md-end">メールアドレス</label></th>
-                        <td><input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                        <td><input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autofocus>
                             @if($errors->has('email'))
                                 <p>{{ $errors->first('email') }}</p>
                             @endif
@@ -21,7 +21,7 @@
                     </tr>
                     <tr>
                         <th><label for="password" class="col-md-4 col-form-label text-md-end">パスワード</label></th>
-                        <td><input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                        <td><input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password">
                             @if($errors->has('password'))
                                 <p>{{ $errors->first('password') }}</p>
                             @endif

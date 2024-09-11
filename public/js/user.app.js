@@ -1,9 +1,9 @@
-//未修の学年ボタンを非活性と非同期処理 
 $(document).ready(function() {
-  let userGradeId = parseInt($('#userGrade').data('grade-id'));
-
+  //未修の学年ボタンを非活性と非同期処理 
+  let userGradeId = $('#userGrade').data('user-grade-id');
+ 
   $('.gradeBtn').each(function() {
-    let buttonGradeId = parseInt($(this).data('grade-id'));
+    let buttonGradeId = $(this).data('grade-id');
     if (buttonGradeId > userGradeId) {
         $(this).prop('disabled', true);
     }
@@ -28,10 +28,11 @@ $(document).ready(function() {
   //月の切り替えの非同期処理
   $('.changeMonth').on('click', function(){
     let page = $(this).data('page');
+    let gradeId = $(this).data('grade-id');
     $.ajax({
         url: '/user/curriculum_list',
         type: 'GET',
-        data: { page: page },
+        data: { page: page, grade_id: gradeId },
         })
 
         .done(function(response) {
