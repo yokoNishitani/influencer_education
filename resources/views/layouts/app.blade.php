@@ -34,7 +34,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <class="nav-item">
-                            <a class="nav-link" href="#">時間割</a>
+                                <a class="nav-link" href="{{ route('show.curriculum') }}">時間割</a>
                         <class="nav-item">
                             <a class="nav-link" href="#">授業進捗</a>
                         <class="nav-item">

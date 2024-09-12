@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\DeliveryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,3 +42,9 @@ Route::view('/user/home', 'user.home')->middleware('auth:user')->name('user.home
 
 // トップページのルート
 Route::get('/top', [App\Http\Controllers\TestUserController::class, 'index'])->name('top');
+
+//時間割一覧のルート
+Route::get('/schedule', [ScheduleController::class, 'showCurriculumList'])->name('show.curriculum');
+
+//配信画面のルート
+Route::get('/delivery/{id}', [DeliveryController::class, 'showDelivery'])->name('show.delivery');
