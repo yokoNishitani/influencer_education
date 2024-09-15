@@ -38,13 +38,13 @@ Route::prefix('user')->namespace('User')->name('user.')->group(function () {
     Route::get('/auth/register', [App\Http\Controllers\User\Auth\RegisterController::class, 'showRegisterForm'])->name('show.register');
     //新規登録処理
     Route::post('/auth/register', [App\Http\Controllers\User\Auth\RegisterController::class, 'register'])->name('register');
-//授業一覧画面
-        Route::get('/curriculum_list', [App\Http\Controllers\User\CurriculumController::class, 'showCurriculumList'])->name('show.curriculum');
+
     //ログイン後
     Route::middleware(['auth:user'])->group(function () {
         //トップ画面
         Route::get('/top', [App\Http\Controllers\User\TopController::class, 'showTop'])->name('show.top');
-        
+        //授業一覧画面
+        Route::get('/curriculum_list', [App\Http\Controllers\User\CurriculumController::class, 'showCurriculumList'])->name('show.curriculum');
         //授業進捗画面
         Route::get('/progress', [App\Http\Controllers\User\ProgressController::class, 'showProgress'])->name('show.progress');
         //プロフィール設定画面
