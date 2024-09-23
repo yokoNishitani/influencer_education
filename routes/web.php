@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ScheduleController;
-use App\Http\Controllers\DeliveryController;
+use App\Http\Controllers\User\DeliveryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -48,3 +48,4 @@ Route::get('/schedule', [ScheduleController::class, 'showCurriculumList'])->name
 
 //配信画面のルート
 Route::get('/delivery/{id}', [DeliveryController::class, 'showDelivery'])->name('show.delivery');
+Route::post('/curriculums/create', [DeliveryController::class, 'createCurriculum'])->name('create.curriculum');

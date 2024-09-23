@@ -9,14 +9,27 @@
     <p>常時配信フラグ: {{ $curriculum->alway_delivery_flg ? 'Yes' : 'No' }}</p>
     <p>学年ID: {{ $curriculum->grade_id }}</p>
 
-    <h2>進捗</h2>
-    @foreach($curriculumProgress as $progress)
-        <p>{{ $progress->progress_status }}</p>
-    @endforeach
+    <h2>カリキュラム進捗</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>進捗</th>
+                <th>その他のカラム</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($curriculumProgress as $progress)
+            <tr>
+                <td>{{ $progress->id }}</td>
+                <td>{{ $progress->progress }}</td>
+                <td>その他の情報</td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
 
-    <h2>クラス</h2>
-    @foreach($classes as $class)
-        <p>{{ $class->class_name }}</p>
-    @endforeach
+    <h2>グレード情報</h2>
+    <p>グレード名: {{ $grade->name }}</p>
 </div>
 @endsection
