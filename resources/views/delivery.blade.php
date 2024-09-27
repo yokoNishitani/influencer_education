@@ -30,6 +30,10 @@
     </table>
 
     <h2>グレード情報</h2>
-    <p>グレード名: {{ $grade->name }}</p>
+    <ul>
+        @foreach($grades as $grade)
+            <li>{{ $grade->name }}</li>
+        @endforeach
+    </ul>
 </div>
 @endsection

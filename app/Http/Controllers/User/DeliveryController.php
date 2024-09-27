@@ -14,7 +14,7 @@ class DeliveryController extends Controller
     {
         
         $curriculum = Curriculum::findOrFail($id);
-        $curriculumProgress = CurriculumProgress::where('curriculum_id', $id)->get();
+        $curriculumProgress = CurriculumProgress::where('curriculumus_id', $id)->get();
         $grades = Grade::all();
 
         return view('delivery', compact('curriculum', 'curriculumProgress', 'grades'));
@@ -22,7 +22,7 @@ class DeliveryController extends Controller
     
     public function createCurriculum()
     {
-        // 新しいカリキュラムを作成
+        
         $curriculum = Curriculum::create([
             'title' => 'Sample Curriculum',
             'description' => 'This is a sample curriculum.',
@@ -32,7 +32,7 @@ class DeliveryController extends Controller
             'grade_id' => 1
         ]);
 
-        // 作成が完了したらリダイレクトなどの処理
+        
         return redirect()->back()->with('success', 'カリキュラムが作成されました！');
     }
 }
