@@ -74,12 +74,6 @@
                                     </button>
                                 </div>
                             </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4 text-center">
-                                <button type="submit" class="btn btn-primary custom-button">
-                                    登録する
-                                </button>
                             </div>
                         </div>
                     </form>

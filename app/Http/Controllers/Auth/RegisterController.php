@@ -53,11 +53,12 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255', new Zenkaku],
-            'name_kana' => ['required', 'string', 'max:255', new Zenkaku],
+            'name_kana' => ['required', 'string', 'max:255', 'regex:/^[\p{Katakana}ー－]+$/u'],
            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed', ],
         ], [
             'required' => '全ての項目を入力してください。',
+            'name_kana.regex' => 'ユーザーネームカナはカタカナで入力してください。',
             'password.confirmed' => 'パスワードと確認用パスワードが一致しません。',
             'email.email' => 'メールアドレスの形式が無効です。',
         ]);
