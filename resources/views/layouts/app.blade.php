@@ -13,6 +13,7 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 
     <!-- Scripts -->
     @viteReactRefresh
@@ -72,11 +73,30 @@
                 </div>
             </div>
         </nav>
+
         @endif
 
         <main class="py-4">
             @yield('content')
         </main>
+
+        <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+        <script>
+    var swiper = new Swiper('.swiper-container', {
+        loop: true, // スライドをループさせる
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true, // ドットアイコンをクリック可能にする
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        autoplay: {
+            delay: 5000,
+        },
+    });
+        </script>
     </div>
 </body>
 </html>

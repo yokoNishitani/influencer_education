@@ -12,23 +12,21 @@
 
     <div class="pt-5 mt-4">
         <!-- バナー表示エリア -->
-        <div id="bannerCarousel" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
                 @foreach($banners as $banner)
-                    <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                    <div class="swiper-slide">
                         <img src="{{ asset('storage/banners/' . $banner->image) }}" class="d-block w-100" alt="Banner Image">
                     </div>
                 @endforeach
             </div>
-            <a class="carousel-control-prev" href="#bannerCarousel" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#bannerCarousel" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
+            <!-- ドットアイコンのエリア -->
+            <div class="swiper-pagination"></div>
+            <!-- 左右のナビゲーションボタン -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
         </div>
+    </div>
 
         <!-- お知らせ表示エリア -->
         <div class="mt-4">
