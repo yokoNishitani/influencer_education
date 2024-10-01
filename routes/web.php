@@ -18,27 +18,34 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/login', function () {
+    return redirect('/user/login');
+});
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::prefix('user')->group(function () {
 // ユーザー認証関連ルート
-Route::get('/user/login', [LoginController::class, 'showLoginForm'])->name('user.login');
-Route::post('/user/login', [LoginController::class, 'login']);
-Route::post('/user/logout', [LoginController::class, 'logout'])->name('user.logout');
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('user.login');
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('user.logout');
 
 // ユーザー登録関連ルート
-Route::get('/user/register', [RegisterController::class, 'showRegistrationForm'])->name('user.register');
-Route::post('/user/register', [RegisterController::class, 'register']);
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('user.register');
+Route::post('/register', [RegisterController::class, 'register']);
 
 // パスワードリセット関連ルート
-Route::get('/user/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('user.password.request');
-Route::post('/user/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('user.password.email');
-Route::get('/user/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('user.password.reset');
-Route::post('/user/password/reset', [ResetPasswordController::class, 'reset']);
+Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('user.password.request');
+Route::post('/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('user.password.email');
+Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('user.password.reset');
+Route::post('/password/reset', [ResetPasswordController::class, 'reset']);
 
 // ユーザーホームルート
-Route::view('/user/home', 'user.home')->middleware('auth:user')->name('user.home');
+Route::view('/home', 'user.home')->middleware('auth:user')->name('user.home');
+});
+
 
 // トップページのルート
 Route::get('/top', [App\Http\Controllers\TestUserController::class, 'index'])->name('top');
