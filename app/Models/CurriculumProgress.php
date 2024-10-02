@@ -10,4 +10,10 @@ class CurriculumProgress extends Model
     use HasFactory;
 
     protected $table = 'curriculum_progress';
+
+    protected $fillable = [
+        'curriculums_id', 
+        'progress',
+    ];
+
 }

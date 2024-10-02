@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\User\DeliveryController;
+use App\Http\Controllers\YourController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -56,3 +57,6 @@ Route::get('/schedule', [ScheduleController::class, 'showCurriculumList'])->name
 //配信画面のルート
 Route::get('/delivery/{id}', [DeliveryController::class, 'showDelivery'])->name('show.delivery');
 Route::post('/curriculums/create', [DeliveryController::class, 'createCurriculum'])->name('create.curriculum');
+
+// 受講済みをマークするルート
+Route::post('/curriculum/{id}/mark-completed', [YourController::class, 'markCompleted'])->name('mark.completed');
