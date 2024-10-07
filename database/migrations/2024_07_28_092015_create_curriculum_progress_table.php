@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
 return new class extends Migration
 {
     /**
@@ -15,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('curriculum_progress', function (Blueprint $table) {
             $table->id();
-            $table->integer('curriculumus_id');
+            $table->integer('curriculums_id');
             $table->integer('users_id');
             $table->tinyInteger('clear_fig');
             $table->timestamps();

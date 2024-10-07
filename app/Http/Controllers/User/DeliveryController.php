@@ -14,12 +14,12 @@ class DeliveryController extends Controller
     {
         
         $curriculum = Curriculum::findOrFail($id);
-        $curriculumProgress = CurriculumProgress::where('curriculums_id', $curriculum->id)->get(); 
+        $curriculumProgress = CurriculumProgress::where('curriculumus_id', $id)->get();
         $grades = Grade::all();
         $grade = $grades->where('id', $curriculum->grade_id)->first();
 
         $isCompleted = $curriculumProgress->contains('status', 'completed');
-        $withinDeliveryPeriod = true; // 独自のロジックで判定する
+        $withinDeliveryPeriod = true; 
 
         return view('delivery', compact('curriculum', 'curriculumProgress', 'grades','grade', 'isCompleted', 'withinDeliveryPeriod'));
     }

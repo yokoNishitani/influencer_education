@@ -20,11 +20,14 @@
                     </div>
                 @endforeach
             </div>
+
+            <div class="slides">
+                <img src="image1.jpg" alt="Image 1">
+                <img src="image2.jpg" alt="Image 2">
+                <img src="image3.jpg" alt="Image 3">
+            </div>
             <!-- ドットアイコンのエリア -->
-            <div class="swiper-pagination"></div>
-            <!-- 左右のナビゲーションボタン -->
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
+            <div class="dots"></div>
         </div>
     </div>
 
@@ -40,3 +43,35 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const slides = document.querySelectorAll(".slides img");
+            const dotsContainer = document.querySelector(".dots");
+            let currentSlide = 0;
+
+            slides.forEach((slide, index) => {
+                const dot = document.createElement("div");
+                dot.classList.add("dot");
+                if (index === currentSlide) dot.classList.add("active");
+                dotsContainer.appendChild(dot);
+
+                dot.addEventListener("click", () => {
+                    showSlide(index);
+                });
+            });
+
+            function showSlide(index) {
+                slides[currentSlide].classList.remove("active");
+                dotsContainer.children[currentSlide].classList.remove("active");
+
+                currentSlide = index;
+                slides[currentSlide].classList.add("active");
+                dotsContainer.children[currentSlide].classList.add("active");
+            }
+
+            showSlide(currentSlide);
+        });
+    </script>
+@endpush

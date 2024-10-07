@@ -24,15 +24,36 @@
     justify-content: space-between;
 }
 
-.swiper-pagination-bullet {
-    background-color: transparent;
-    color: black;
-    font-size: 20px;
-    content: '○';
+.carousel {
+    position: relative;
+    width: 80%;
+    margin: auto;
 }
 
-/* アクティブなドットを●にする */
-.swiper-pagination-bullet-active {
-    content: '●'; 
-    color: red;
+.slides img {
+    width: 100%;
+    display: none;
+}
+
+.slides img.active {
+    display: block;
+}
+
+.dots {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background-color: lightgray;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.dot.active {
+    background-color: black; /* アクティブなドットの色 */
 }

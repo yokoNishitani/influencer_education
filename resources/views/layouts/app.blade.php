@@ -18,6 +18,8 @@
     <!-- Scripts -->
     @viteReactRefresh
     @vite(['resources/js/app.js', 'resources/css/app.css'])
+    @stack('scripts')
+    
 </head>
 <body>
     <div id="app">

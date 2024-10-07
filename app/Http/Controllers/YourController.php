@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Curriculum;
-
+use App\Models\CurriculumProgress;
 
 class YourController extends Controller
 {
@@ -15,7 +15,7 @@ class YourController extends Controller
 
         CurriculumProgress::create([
             'curriculums_id' => $curriculum->id,
-            'progress' => 'completed', // 進捗のステータス
+            'progress' => 'completed',
         ]);
     
         return redirect()->back()->with('success', 'カリキュラムが受講済みとしてマークされました。');
