@@ -15,7 +15,8 @@ class YourController extends Controller
 
         CurriculumProgress::create([
             'curriculums_id' => $curriculum->id,
-            'progress' => 'completed',
+            'users_id' => auth()->id(),
+            'clear_fig' => 1,
         ]);
     
         return redirect()->back()->with('success', 'カリキュラムが受講済みとしてマークされました。');

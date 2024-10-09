@@ -13,6 +13,12 @@ class TestUser extends Model
         $articles = Article::all();
         $banners = Banner::all();
         
+
         return view('layouts.top', compact('articles'));
+    }
+
+    public function curriculumProgress()
+    {
+        return $this->hasMany(CurriculumProgress::class, 'users_id');
     }
 }

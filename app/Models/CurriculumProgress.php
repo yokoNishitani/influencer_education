@@ -13,7 +13,18 @@ class CurriculumProgress extends Model
 
     protected $fillable = [
         'curriculums_id', 
-        'progress',
+        'users_id', 
+        'clear_fig',
     ];
+    
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'users_id');
+    }
+
+    public function curriculum()
+    {
+        return $this->belongsTo(Curriculum::class, 'curriculums_id');
+    }
 
 }
