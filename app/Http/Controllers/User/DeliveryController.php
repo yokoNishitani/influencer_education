@@ -10,6 +10,14 @@ use Illuminate\Http\Request;
 
 class DeliveryController extends Controller
 {
+
+    public function __construct()
+    {
+        // このコントローラーのすべてのメソッドに認証ミドルウェアを適用
+        $this->middleware('auth');
+    }
+
+    
     public function showDelivery($id)
     {
         

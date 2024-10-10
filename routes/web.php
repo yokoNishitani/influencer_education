@@ -56,6 +56,7 @@ Route::get('/schedule', [ScheduleController::class, 'showCurriculumList'])->name
 
 //配信画面のルート
 Route::get('/delivery/{id}', [DeliveryController::class, 'showDelivery'])->name('show.delivery');
+Route::post('/curriculum/{id}/mark-completed', [DeliveryController::class, 'markCompleted'])->name('mark.completed');
 Route::post('/curriculums/create', [DeliveryController::class, 'createCurriculum'])->name('create.curriculum');
 
 // 受講済みをマークするルート
