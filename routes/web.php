@@ -61,3 +61,4 @@ Route::post('/curriculums/create', [DeliveryController::class, 'createCurriculum
 
 // 受講済みをマークするルート
 Route::post('/curriculum/{id}/mark-completed', [YourController::class, 'markCompleted'])->name('mark.completed');
+
