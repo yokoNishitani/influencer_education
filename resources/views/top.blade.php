@@ -13,6 +13,7 @@
     <div class="pt-5 mt-4">
         <!-- バナー表示エリア -->
         <div class="swiper-container">
+            <button class="prev-btn">＜前へ</button>
             <div class="swiper-wrapper">
                 @foreach($banners as $banner)
                     <div class="swiper-slide">
@@ -26,20 +27,22 @@
                 <img src="image2.jpg" alt="Image 2">
                 <img src="image3.jpg" alt="Image 3">
             </div>
+
+            <button class="next-btn">次へ＞</button>
+
             <!-- ドットアイコンのエリア -->
             <div class="dots"></div>
         </div>
     </div>
 
-        <!-- お知らせ表示エリア -->
-        <div class="mt-4">
-            <h2>お知らせ</h2>
-            <ul>
-                @foreach($articles as $article)
-                    <li>{{ $article->title }}</li>
-                @endforeach
-            </ul>
-        </div>
+    <!-- お知らせ表示エリア -->
+    <div class="mt-4">
+        <h2>お知らせ</h2>
+        <ul>
+            @foreach($articles as $article)
+                <li>{{ $article->title }}</li>
+            @endforeach
+        </ul>
     </div>
 </div>
 @endsection
@@ -72,6 +75,30 @@
             }
 
             showSlide(currentSlide);
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // バナーの画像要素を選択（swiper-slide内のimg要素を取得）
+            const banners = document.querySelectorAll(".swiper-slide img");
+            const prevBtn = document.querySelector(".prev-btn");
+            const nextBtn = document.querySelector(".next-btn");
+            let currentBanner = 0;
+
+            banners[currentBanner].classList.add("active");
+
+            nextBtn.addEventListener("click", function() {
+                banners[currentBanner].classList.remove("active");
+                currentBanner = (currentBanner + 1) % banners.length;
+                banners[currentBanner].classList.add("active");
+            });
+
+            prevBtn.addEventListener("click", function() {
+                banners[currentBanner].classList.remove("active");
+                currentBanner = (currentBanner - 1 + banners.length) % banners.length;
+                banners[currentBanner].classList.add("active");
+            });
         });
     </script>
 @endpush
