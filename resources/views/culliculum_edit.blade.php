@@ -111,7 +111,8 @@
                         <label for="alway_delivery_flg" class="form-label">常時公開</label>
                     </dt>
                     <dd style="width: 70%;">
-                        <input id="alway_delivery_flg" type="checkbox" name="alway_delivery_flg" value="1" @if($curriculum->alway_delivery_flg) checked @endif>
+                        <input id="alway_delivery_flg" type="checkbox" name="alway_delivery_flg" value="1" 
+                            {{ old('alway_delivery_flg', $curriculum->alway_delivery_flg) ? 'checked' : '' }}>
                     </dd>
                 </dl>
             </div>

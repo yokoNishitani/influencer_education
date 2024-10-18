@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="text-right">
-                <a class="btn btn-success" href="{{ url('/culliculum_create') }}">新規登録</a>
+                <a class="btn btn-success" href="{{ route('curriculums.create') }}">新規作成</a> <!-- 新規作成ボタン -->
             </div>
             <div class="text-left">
                 <h1>授業一覧</h1>
@@ -26,47 +26,41 @@
                 <h1 id="selected-grade-name">すべての授業</h1> <!-- 選択された学年を表示する部分 -->
                 <div class="row">
                     @foreach($curriculums as $curriculum)
-                        @php
-                            // 現在の日時を取得
-                            $currentDateTime = now();
+                        <div class="col-md-4 mb-4 curriculum-card" data-grade-id="{{ $curriculum->grade_id }}">
+                            <div class="card">
+                                <table border="1" class="table">
+                                    <tr>
+                                        <td class="table-img">
+                                            @if($curriculum->thumbnail)
+                                                <img src="{{ asset('storage/images/'.$curriculum->thumbnail) }}" class="mx-auto" style="width:100%;">
+                                            @endif
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><h4>{{ $curriculum->title }}</h4></td>
+                                    </tr>
 
-                            // 常時公開フラグが有効か、現在日時が配信期間内にあるかをチェック
-                            $isVisible = $curriculum->alway_delivery_flg || $delivery_times->where('curriculums_id', $curriculum->id)->contains(function($delivery_time) use ($currentDateTime) {
-                                return $currentDateTime->between($delivery_time->delivery_from, $delivery_time->delivery_to);
-                            });
-                        @endphp
-
-                        @if ($isVisible)
-                            <div class="col-md-4 mb-4 curriculum-card" data-grade-id="{{ $curriculum->grade_id }}">
-                                <div class="card">
-                                    <table border="1" class="table">
-                                        <tr>
-                                            <td class="table-img">
-                                                @if($curriculum->thumbnail)
-                                                    <img src="{{ asset('storage/images/'.$curriculum->thumbnail) }}" class="mx-auto" style="width:100%;">
-                                                @endif
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><h4>{{ $curriculum->title }}</h4></td>
-                                        </tr>
-
-                                        <!-- 配信日時表示 -->
+                                    <!-- 配信日時表示 -->
+                                    @if($delivery_times->where('curriculums_id', $curriculum->id)->isNotEmpty())
                                         @foreach($delivery_times->where('curriculums_id', $curriculum->id) as $delivery_time)
                                             <tr>
                                                 <td>{{ \Carbon\Carbon::parse($delivery_time->delivery_from)->format('m/d') }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($delivery_time->delivery_from)->format('H:i') }} - {{ \Carbon\Carbon::parse($delivery_time->delivery_to)->format('H:i') }}</td>
                                             </tr>
                                         @endforeach
-
+                                    @else
                                         <tr>
-                                            <td><a class="btn btn-success" href="{{ route('curriculums.edit', $curriculum->id) }}">授業内容編集</a></td>
-                                            <td><a href="{{ route('delivery.index', ['curriculums_id' => $curriculum->id]) }}" class="btn btn-primary">配信日時設定</a></td>
+                                            <td colspan="2">配信日時が設定されていません。</td>
                                         </tr>
-                                    </table>
-                                </div>
+                                    @endif
+
+                                    <tr>
+                                        <td><a class="btn btn-success" href="{{ route('curriculums.edit', $curriculum->id) }}">授業内容編集</a></td>
+                                        <td><a href="{{ route('delivery.index', ['curriculums_id' => $curriculum->id]) }}" class="btn btn-primary">配信日時設定</a></td>
+                                    </tr>
+                                </table>
                             </div>
-                        @endif
+                        </div>
                     @endforeach
                 </div>
             </div>

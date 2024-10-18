@@ -4,7 +4,8 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="text-right">
-                <a class="btn btn-success" href="{{ url('/culliculum_list') }}">戻る</a>
+                <a class="btn btn-success" href="{{ route('curriculums.index') }}">戻る</a>
+
             </div>
 
             <div class="text-left">
