@@ -88,35 +88,36 @@
     </form>
 
     <script>
-    $(document).ready(function() {
-        $('#add-row').click(function() {
-            var newRow = `
-                <div class="row mb-2">
-                    <div class="col">
-                        <input type="date" name="delivery_from_date[]" class="form-control" placeholder="開始日" aria-label="開始日">
-                    </div>
-                    <div class="col">
-                        <input type="time" name="delivery_from_time[]" class="form-control" placeholder="開始時間" aria-label="開始時間">
-                    </div>
-                    <div class="col">
-                        <p>　～　</p>
-                    </div>
-                    <div class="col">
-                        <input type="date" name="delivery_to_date[]" class="form-control" placeholder="終了日" aria-label="終了日">
-                    </div>
-                    <div class="col">
-                        <input type="time" name="delivery_to_time[]" class="form-control" placeholder="終了時間" aria-label="終了時間">
-                    </div>
-                    <div class="col">
-                        <button type="button" class="btn btn-danger rounded-circle remove-row">ー</button>
-                    </div>
-                </div>`;
-            $('#rows-container').append(newRow);
-        });
-
-        $(document).on('click', '.remove-row', function() {
-            $(this).closest('.row').remove();
-        });
+$(document).ready(function() {
+    $('#add-row').click(function() {
+        var newRow = `
+            <div class="row mb-2">
+                <div class="col">
+                    <input type="date" name="delivery_from_date[]" class="form-control" placeholder="開始日" aria-label="開始日">
+                </div>
+                <div class="col">
+                    <input type="time" name="delivery_from_time[]" class="form-control" placeholder="開始時間" aria-label="開始時間">
+                </div>
+                <div class="col">
+                    <p> ～ </p>
+                </div>
+                <div class="col">
+                    <input type="date" name="delivery_to_date[]" class="form-control" placeholder="終了日" aria-label="終了日">
+                </div>
+                <div class="col">
+                    <input type="time" name="delivery_to_time[]" class="form-control" placeholder="終了時間" aria-label="終了時間">
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-danger rounded-circle remove-row">ー</button>
+                </div>
+            </div>`;
+        $('#rows-container').append(newRow);
     });
-    </script>
+
+    $(document).on('click', '.remove-row', function() {
+        $(this).closest('.row').remove();
+    });
+});
+</script>
+
 @endsection
