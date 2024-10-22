@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\User\DeliveryController;
 use App\Http\Controllers\YourController;
+use App\Http\Controllers\Auth\User\LoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
