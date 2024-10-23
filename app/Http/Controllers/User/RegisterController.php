@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -30,7 +31,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/user/home';
+    protected $redirectTo = '/top';
 
     /**
      * Create a new controller instance.
@@ -50,7 +51,7 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         $grades = Grade::all(); // 学年を取得
-        return view('user.auth.register', compact('grades'));
+        return view('user.register', compact('grades'));
     }
 
     /**
@@ -89,6 +90,6 @@ class RegisterController extends Controller
     protected function registered(Request $request, $user)
     {
         Auth::guard('user')->login($user);
-        return redirect()->route('login'); // ログイン画面へのリダイレクト
+        return redirect()->route('user.login'); // ログイン画面へのリダイレクト
     }
 }
