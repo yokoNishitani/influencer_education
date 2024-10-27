@@ -14,7 +14,7 @@ class CurriculumProgress extends Model
     protected $fillable = [
         'curriculums_id', 
         'users_id', 
-        'clear_fig',
+        'clear_flg',
     ];
     
     public function user()

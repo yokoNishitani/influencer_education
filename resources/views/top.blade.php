@@ -17,7 +17,7 @@
             <div class="swiper-wrapper">
                 @foreach($banners as $banner)
                     <div class="swiper-slide">
-                        <img src="{{ asset('storage/banners/' . $banner->image) }}" class="d-block w-100" alt="Banner Image">
+                        <img src="{{ asset('storage/' . $banner->image) }}" class="d-block w-100" alt="Banner Image">
                     </div>
                 @endforeach
             </div>
@@ -50,55 +50,78 @@
 @push('scripts')
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const slides = document.querySelectorAll(".slides img");
+            const banners = document.querySelectorAll(".swiper-slide img");
             const dotsContainer = document.querySelector(".dots");
-            let currentSlide = 0;
+            const prevBtn = document.querySelector(".prev-btn");
+            const nextBtn = document.querySelector(".next-btn");
+            let currentBanner = 0;
 
-            slides.forEach((slide, index) => {
-                const dot = document.createElement("div");
-                dot.classList.add("dot");
-                if (index === currentSlide) dot.classList.add("active");
-                dotsContainer.appendChild(dot);
+            banners.forEach((banner, index) => {
+        const dot = document.createElement("div");
+        dot.classList.add("dot");
+        if (index === currentBanner) dot.classList.add("active");
+        dotsContainer.appendChild(dot);
 
-                dot.addEventListener("click", () => {
-                    showSlide(index);
-                });
-            });
-
-            function showSlide(index) {
-                slides[currentSlide].classList.remove("active");
-                dotsContainer.children[currentSlide].classList.remove("active");
-
-                currentSlide = index;
-                slides[currentSlide].classList.add("active");
-                dotsContainer.children[currentSlide].classList.add("active");
-            }
-
-            showSlide(currentSlide);
+        // ドットをクリックすると該当するスライドに移動
+        dot.addEventListener("click", () => {
+            showSlide(index);
         });
+    });
+
+    // ドットとスライドを更新する関数
+    function showSlide(index) {
+        banners[currentBanner].classList.remove("active");
+        dotsContainer.children[currentBanner].classList.remove("active");
+
+        currentBanner = index;
+        banners[currentBanner].classList.add("active");
+        dotsContainer.children[currentBanner].classList.add("active");
+    }
+
+    // 「次へ」ボタン
+    nextBtn.addEventListener("click", function() {
+        banners[currentBanner].classList.remove("active");
+        dotsContainer.children[currentBanner].classList.remove("active");
+        currentBanner = (currentBanner + 1) % banners.length;
+        banners[currentBanner].classList.add("active");
+        dotsContainer.children[currentBanner].classList.add("active");
+    });
+
+    // 「前へ」ボタン
+    prevBtn.addEventListener("click", function() {
+        banners[currentBanner].classList.remove("active");
+        dotsContainer.children[currentBanner].classList.remove("active");
+        currentBanner = (currentBanner - 1 + banners.length) % banners.length;
+        banners[currentBanner].classList.add("active");
+        dotsContainer.children[currentBanner].classList.add("active");
+    });
+
+    // 初期表示
+    showSlide(currentBanner);
+});
     </script>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // バナーの画像要素を選択（swiper-slide内のimg要素を取得）
             const banners = document.querySelectorAll(".swiper-slide img");
             const prevBtn = document.querySelector(".prev-btn");
             const nextBtn = document.querySelector(".next-btn");
             let currentBanner = 0;
 
-            banners[currentBanner].classList.add("active");
+        banners[currentBanner].classList.add("active");
 
-            nextBtn.addEventListener("click", function() {
-                banners[currentBanner].classList.remove("active");
-                currentBanner = (currentBanner + 1) % banners.length;
-                banners[currentBanner].classList.add("active");
-            });
-
-            prevBtn.addEventListener("click", function() {
-                banners[currentBanner].classList.remove("active");
-                currentBanner = (currentBanner - 1 + banners.length) % banners.length;
-                banners[currentBanner].classList.add("active");
-            });
-        });
+    // 次へボタンの動作
+        nextBtn.addEventListener("click", function() {
+        banners[currentBanner].classList.remove("active");
+        currentBanner = (currentBanner + 1) % banners.length;
+        banners[currentBanner].classList.add("active");
+    });
+    
+    prevBtn.addEventListener("click", function() {
+        banners[currentBanner].classList.remove("active");
+        currentBanner = (currentBanner - 1 + banners.length) % banners.length;
+        banners[currentBanner].classList.add("active");
+    });
+});
     </script>
 @endpush

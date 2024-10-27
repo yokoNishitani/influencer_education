@@ -29,10 +29,17 @@ class DeliveryController extends Controller
         $grades = Grade::all();
         $grade = $grades->where('id', $curriculum->grade_id)->first();
 
-       $isCompleted = $curriculumProgress !== null && $curriculumProgress->clear_fig == 1;
+       $isCompleted = $curriculumProgress !== null && $curriculumProgress->clear_flg == 1;
         $withinDeliveryPeriod = true; 
 
-        return view('delivery', compact('curriculum', 'curriculumProgress', 'grades','grade', 'isCompleted', 'withinDeliveryPeriod'));
+    // このカリキュラムに対応する配信期間を取得
+    $deliveryTime = $curriculum->deliveryTime;
+    $now = now();  // 現在の時間
+
+    // 現在の時間が配信期間外かどうかを確認
+    $isOutsideDeliveryPeriod = $deliveryTime && ($now < $deliveryTime->delivery_from || $now > $deliveryTime->delivery_to);
+
+        return view('delivery', compact('curriculum', 'curriculumProgress', 'grades','grade', 'isCompleted', 'isOutsideDeliveryPeriod'));
     }
     
     public function createCurriculum()
@@ -44,10 +51,24 @@ class DeliveryController extends Controller
             'thumbnail' => '/path/to/thumbnail.jpg',
             'video_url' => 'http://example.com/video',
             'alway_delivery_flg' => 1,
-            'grade_id' => 1
+            'grade_id' => 1,
         ]);
 
         
         return redirect()->back()->with('success', 'カリキュラムが作成されました！');
+    }
+
+    public function markCompleted($id)
+    {
+        $curriculum = Curriculum::findOrFail($id);
+
+        // 受講進捗を作成
+        CurriculumProgress::create([
+            'curriculums_id' => $curriculum->id,
+            'users_id' => auth()->id(),
+            'clear_flg' => 1,
+        ]);
+
+        return redirect()->back()->with('success', 'カリキュラムが受講済みとしてマークされました。');
     }
 }

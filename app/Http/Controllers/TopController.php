@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Article; 
 use App\Models\Banner;
 
-class TestUserController extends Controller
+class TopController extends Controller
 {
     public function index()
     {

@@ -50,7 +50,7 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         $grades = Grade::all(); // 学年を取得
-        return view('user.auth.register', compact('grades'));
+        return view('user.register', compact('grades'));
     }
 
     /**
@@ -89,6 +89,6 @@ class RegisterController extends Controller
     protected function registered(Request $request, $user)
     {
         Auth::guard('user')->login($user);
-        return redirect()->route('login'); // ログイン画面へのリダイレクト
+        return redirect()->route('user.login'); // ログイン画面へのリダイレクト
     }
 }

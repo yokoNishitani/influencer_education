@@ -23,7 +23,7 @@
 </head>
 <body>
     <div id="app">
-        @if (!Route::is('login') && !Route::is('register'))
+        @if (!Route::is('user.login') && !Route::is('user.register'))
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -50,12 +50,12 @@
                         @guest
                             @if (Route::has('login'))
                                 <class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">ログイン</a>
+                                    <a class="nav-link" href="{{ route('user.login') }}">ログイン</a>
                             @endif
 
                             @if (Route::has('register'))
                                 <class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">新規登録はこちら</a>
+                                    <a class="nav-link" href="{{ route('user.register') }}">新規登録はこちら</a>
                             @endif
                         @else
 
@@ -85,7 +85,7 @@
         <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
         <script>
     var swiper = new Swiper('.swiper-container', {
-        loop: true, // スライドをループさせる
+        loop: false, 
         pagination: {
             el: '.swiper-pagination',
             clickable: true, // ドットアイコンをクリック可能にする
@@ -94,9 +94,7 @@
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
         },
-        autoplay: {
-            delay: 5000,
-        },
+        autoplay: false,
     });
         </script>
     </div>

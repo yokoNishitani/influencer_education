@@ -7,12 +7,12 @@
             <div class="card">
                 <div class="card-header text-center custom-header">ログイン</div>
 
-                <a class="btn btn-link" href="{{ route('register') }}">
+                <a class="btn btn-link" href="{{ route('user.register') }}">
                     {{ __('新規登録はこちら') }}
                 </a>
 
                 <div class="card-body"> 
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('user.login') }}">
                         @csrf
 
                         <div class="row mb-3">

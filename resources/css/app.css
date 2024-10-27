@@ -57,3 +57,13 @@
 .dot.active {
     background-color: black; /* アクティブなドットの色 */
 }
+
+.video-container {
+    display: flex;
+    justify-content: space-between; /* Space between the video and the button */
+    align-items: center;
+}
+
+.button-container {
+    margin-left: auto; /* Pushes the button to the right */
+}

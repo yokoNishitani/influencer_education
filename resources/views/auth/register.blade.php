@@ -8,7 +8,7 @@
                 <div class="card-header text-center custom-header">新規登録はこちら</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('user.register') }}">
                         @csrf
 
                         <div class="row mb-3">

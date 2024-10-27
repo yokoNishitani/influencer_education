@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\User\DeliveryController;
-use App\Http\Controllers\YourController;
+use App\Http\Controllers\User\RegisterController;
+use App\Http\Controllers\User\LogoutController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,9 +30,12 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::prefix('user')->group(function () {
 // ユーザー認証関連ルート
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('user.login');
-Route::post('/login', [LoginController::class, 'login']);
-Route::post('/logout', [LoginController::class, 'logout'])->name('user.logout');
+Route::get('/login', [App\Http\Controllers\User\LoginController::class, 'showLoginForm'])->name('user.login');
+Route::post('/login', [App\Http\Controllers\User\LoginController::class, 'login']);
+Route::post('/logout', [App\Http\Controllers\User\LoginController::class, 'logout'])->name('user.logout');
+
+// ログアウトのルート
+Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 
 // ユーザー登録関連ルート
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('user.register');
@@ -49,7 +53,7 @@ Route::view('/home', 'user.home')->middleware('auth:user')->name('user.home');
 
 
 // トップページのルート
-Route::get('/top', [App\Http\Controllers\TestUserController::class, 'index'])->name('top');
+Route::get('/top', [App\Http\Controllers\TopController::class, 'index'])->name('top');
 
 //時間割一覧のルート
 Route::get('/schedule', [ScheduleController::class, 'showCurriculumList'])->name('show.curriculum');
@@ -59,6 +63,4 @@ Route::get('/delivery/{id}', [DeliveryController::class, 'showDelivery'])->name(
 Route::post('/curriculum/{id}/mark-completed', [DeliveryController::class, 'markCompleted'])->name('mark.completed');
 Route::post('/curriculums/create', [DeliveryController::class, 'createCurriculum'])->name('create.curriculum');
 
-// 受講済みをマークするルート
-Route::post('/curriculum/{id}/mark-completed', [YourController::class, 'markCompleted'])->name('mark.completed');
 
