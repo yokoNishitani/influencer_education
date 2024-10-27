@@ -3,8 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\User\DeliveryController;
+<<<<<<< HEAD
 use App\Http\Controllers\User\RegisterController;
 use App\Http\Controllers\User\LogoutController;
+=======
+use App\Http\Controllers\YourController;
+use App\Http\Controllers\User\LoginController;
+use App\Http\Controllers\User\RegisterController;
+>>>>>>> 507f0726fe2ff1361f3defbf82291aa8af2066bd
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,6 +29,10 @@ Route::get('/', function () {
 Route::get('/login', function () {
     return redirect('/user/login');
 });
+
+Route::get('/top', function () {
+    return view('top'); 
+})->name('top');
 
 Auth::routes();
 
@@ -47,8 +57,16 @@ Route::post('/password/email', [ForgotPasswordController::class, 'sendResetLinkE
 Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('user.password.reset');
 Route::post('/password/reset', [ResetPasswordController::class, 'reset']);
 
+// トップページのルート
+Route::get('/top', [App\Http\Controllers\TestUserController::class, 'index'])->name('top');
+
 // ユーザーホームルート
 Route::view('/home', 'user.home')->middleware('auth:user')->name('user.home');
+
+//配信画面のルート
+Route::get('/delivery/{id}', [DeliveryController::class, 'showDelivery'])->name('show.delivery');
+Route::post('/curriculum/{id}/mark-completed', [DeliveryController::class, 'markCompleted'])->name('mark.completed');
+Route::post('/curriculums/create', [DeliveryController::class, 'createCurriculum'])->name('create.curriculum');
 });
 
 
@@ -59,8 +77,16 @@ Route::get('/top', [App\Http\Controllers\TopController::class, 'index'])->name('
 Route::get('/schedule', [ScheduleController::class, 'showCurriculumList'])->name('show.curriculum');
 
 //配信画面のルート
+<<<<<<< HEAD
 Route::get('/delivery/{id}', [DeliveryController::class, 'showDelivery'])->name('show.delivery');
 Route::post('/curriculum/{id}/mark-completed', [DeliveryController::class, 'markCompleted'])->name('mark.completed');
 Route::post('/curriculums/create', [DeliveryController::class, 'createCurriculum'])->name('create.curriculum');
 
+=======
+//Route::get('/delivery/{id}', [DeliveryController::class, 'showDelivery'])->name('show.delivery');
+//Route::post('/curriculum/{id}/mark-completed', [DeliveryController::class, 'markCompleted'])->name('mark.completed');
+//Route::post('/curriculums/create', [DeliveryController::class, 'createCurriculum'])->name('create.curriculum');
+// 受講済みをマークするルート
+Route::post('/curriculum/{id}/mark-completed', [YourController::class, 'markCompleted'])->name('mark.completed');
+>>>>>>> 507f0726fe2ff1361f3defbf82291aa8af2066bd
 

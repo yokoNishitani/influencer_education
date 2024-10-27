@@ -26,6 +26,10 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo = '/top';
+<<<<<<< HEAD
+=======
+
+>>>>>>> 507f0726fe2ff1361f3defbf82291aa8af2066bd
     /**
      * Create a new controller instance.
      *
