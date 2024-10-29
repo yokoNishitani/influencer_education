@@ -9,6 +9,7 @@ class BannerController extends Controller
 {
     public function store(Request $request)
     {
+        $banners = Banner::all(); 
         return view('create');
     }
 }

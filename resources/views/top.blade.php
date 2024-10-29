@@ -17,7 +17,7 @@
             <div class="swiper-wrapper">
                 @foreach($banners as $banner)
                     <div class="swiper-slide">
-                        <img src="{{ asset('storage/' . $banner->image) }}" class="d-block w-100" alt="Banner Image">
+                        <img src="{{ asset('storage/banners/トップ.jpg') }}" class="d-block w-100" alt="Banner Image">
                     </div>
                 @endforeach
             </div>
@@ -48,80 +48,51 @@
 @endsection
 
 @push('scripts')
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const banners = document.querySelectorAll(".swiper-slide img");
-            const dotsContainer = document.querySelector(".dots");
-            const prevBtn = document.querySelector(".prev-btn");
-            const nextBtn = document.querySelector(".next-btn");
-            let currentBanner = 0;
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const banners = document.querySelectorAll(".swiper-slide img");
+        const dotsContainer = document.querySelector(".dots");
+        const prevBtn = document.querySelector(".prev-btn");
+        const nextBtn = document.querySelector(".next-btn");
+        let currentBanner = 0;
 
-            banners.forEach((banner, index) => {
-        const dot = document.createElement("div");
-        dot.classList.add("dot");
-        if (index === currentBanner) dot.classList.add("active");
-        dotsContainer.appendChild(dot);
+        // ドットアイコンを生成
+        banners.forEach((banner, index) => {
+            const dot = document.createElement("div");
+            dot.classList.add("dot");
+            if (index === currentBanner) dot.classList.add("active");
+            dotsContainer.appendChild(dot);
 
-        // ドットをクリックすると該当するスライドに移動
-        dot.addEventListener("click", () => {
-            showSlide(index);
+            // ドットをクリックすると該当するスライドに移動
+            dot.addEventListener("click", () => {
+                showSlide(index); // クリックしたドットに対応する画像に切り替える
+            });
         });
-    });
 
-    // ドットとスライドを更新する関数
-    function showSlide(index) {
-        banners[currentBanner].classList.remove("active");
-        dotsContainer.children[currentBanner].classList.remove("active");
+        // スライドとドットを更新する関数
+        function showSlide(index) {
+            // 現在のバナーとドットを非表示に
+            banners[currentBanner].classList.remove("active");
+            dotsContainer.children[currentBanner].classList.remove("active");
 
-        currentBanner = index;
-        banners[currentBanner].classList.add("active");
-        dotsContainer.children[currentBanner].classList.add("active");
-    }
+            // 新しいバナーとドットを表示
+            currentBanner = index;
+            banners[currentBanner].classList.add("active");
+            dotsContainer.children[currentBanner].classList.add("active");
+        }
 
-    // 「次へ」ボタン
-    nextBtn.addEventListener("click", function() {
-        banners[currentBanner].classList.remove("active");
-        dotsContainer.children[currentBanner].classList.remove("active");
-        currentBanner = (currentBanner + 1) % banners.length;
-        banners[currentBanner].classList.add("active");
-        dotsContainer.children[currentBanner].classList.add("active");
-    });
-
-    // 「前へ」ボタン
-    prevBtn.addEventListener("click", function() {
-        banners[currentBanner].classList.remove("active");
-        dotsContainer.children[currentBanner].classList.remove("active");
-        currentBanner = (currentBanner - 1 + banners.length) % banners.length;
-        banners[currentBanner].classList.add("active");
-        dotsContainer.children[currentBanner].classList.add("active");
-    });
-
-    // 初期表示
-    showSlide(currentBanner);
-});
-    </script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const banners = document.querySelectorAll(".swiper-slide img");
-            const prevBtn = document.querySelector(".prev-btn");
-            const nextBtn = document.querySelector(".next-btn");
-            let currentBanner = 0;
-
-        banners[currentBanner].classList.add("active");
-
-    // 次へボタンの動作
+        // 次へボタン
         nextBtn.addEventListener("click", function() {
-        banners[currentBanner].classList.remove("active");
-        currentBanner = (currentBanner + 1) % banners.length;
-        banners[currentBanner].classList.add("active");
+            showSlide((currentBanner + 1) % banners.length);
+        });
+
+        // 前へボタン
+        prevBtn.addEventListener("click", function() {
+            showSlide((currentBanner - 1 + banners.length) % banners.length);
+        });
+
+        // 初期表示
+        showSlide(currentBanner);
     });
-    
-    prevBtn.addEventListener("click", function() {
-        banners[currentBanner].classList.remove("active");
-        currentBanner = (currentBanner - 1 + banners.length) % banners.length;
-        banners[currentBanner].classList.add("active");
-    });
-});
-    </script>
+</script>
 @endpush
