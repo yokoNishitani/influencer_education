@@ -17,15 +17,9 @@
             <div class="swiper-wrapper">
                 @foreach($banners as $banner)
                     <div class="swiper-slide">
-                        <img src="{{ asset('storage/banners/トップ.jpg') }}" class="d-block w-100" alt="Banner Image">
+                        <img src="{{ asset('storage/banners/' . $banner->image) }}" class="d-block w-100" alt="Banner Image">
                     </div>
                 @endforeach
-            </div>
-
-            <div class="slides">
-                <img src="image1.jpg" alt="Image 1">
-                <img src="image2.jpg" alt="Image 2">
-                <img src="image3.jpg" alt="Image 3">
             </div>
 
             <button class="next-btn">次へ＞</button>

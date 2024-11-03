@@ -3,6 +3,28 @@
     
 }
 
+.custom-header {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.custom-button {
+    padding: center;
+    font-size: 18px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.custom-button:hover {
+    background-color: #0056b3;
+}
+.row.justify-content-center{
+    text-align: center;
+}
+
 .full-height {
     height: 100vh;
 }
@@ -76,14 +98,16 @@
 
 .video-container {
     display: flex;
-    justify-content: space-between; /* Space between the video and the button */
+    justify-content: space-between; 
     align-items: center;
 }
 
 .button-container {
-    margin-left: auto; /* Pushes the button to the right */
+    margin-left: auto; 
 }
+
 .swiper-container {
+
     position: relative;
     width: 100%;
     max-width: 100%; /* 1枚の画像の幅に調整 */
