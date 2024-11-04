@@ -7,9 +7,10 @@ use App\Models\Banner;
 
 class BannerController extends Controller
 {
-    public function store(Request $request)
-    {
-        $banners = Banner::all(); 
-        return view('create');
+    public function showList() {
+        $model = new Banner();
+        $banners = $model->getList();
+
+        return view('image', ['banners' => $banners]);
     }
 }

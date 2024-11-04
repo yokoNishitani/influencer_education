@@ -26,6 +26,11 @@ class Curriculum extends Model
     
     public function progress()
     {
-        return $this->hasMany(CurriculumProgress::class);
+        return $this->hasOne(DeliveryTime::class, );
+    }
+
+    public function deliveryTime()
+    {
+        return $this->hasOne(DeliveryTime::class, 'curriculums_id', 'id');
     }
 }

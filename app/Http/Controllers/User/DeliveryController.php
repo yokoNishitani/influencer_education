@@ -36,9 +36,14 @@ class DeliveryController extends Controller
     $deliveryTime = $curriculum->deliveryTime;
     $now = now();  // 現在の時間
 
+    $isWithinDeliveryPeriod = true;
+    
     // 現在の時間が配信期間外かどうかを確認
-    $isOutsideDeliveryPeriod = $deliveryTime && ($now < $deliveryTime->delivery_from || $now > $deliveryTime->delivery_to);
-
+    if ($deliveryTime) {
+        $isOutsideDeliveryPeriod = ($now < $deliveryTime->delivery_from || $now > $deliveryTime->delivery_to);
+    } else {
+        $isOutsideDeliveryPeriod = true;  // 配信期間がない場合は期間外と見なす
+    }
         return view('delivery', compact('curriculum', 'curriculumProgress', 'grades','grade', 'isCompleted', 'isOutsideDeliveryPeriod'));
     }
     

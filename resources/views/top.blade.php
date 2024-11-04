@@ -17,11 +17,12 @@
             <div class="swiper-wrapper">
                 @foreach($banners as $banner)
                     <div class="swiper-slide">
-                        <img src="{{ asset('storage/banners/' . $banner->image) }}" class="d-block w-100" alt="Banner Image">
+                        <img src="{{ asset($banner->image) }}" class="top-image" alt="Banner Image">
                     </div>
                 @endforeach
             </div>
 
+            
             <button class="next-btn">次へ＞</button>
 
             <!-- ドットアイコンのエリア -->
@@ -44,7 +45,7 @@
 @push('scripts')
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const banners = document.querySelectorAll(".swiper-slide img");
+        const banners = document.querySelectorAll(".swiper-slide img");  // 画像の選択
         const dotsContainer = document.querySelector(".dots");
         const prevBtn = document.querySelector(".prev-btn");
         const nextBtn = document.querySelector(".next-btn");
