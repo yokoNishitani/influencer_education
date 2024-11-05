@@ -12,21 +12,23 @@
 
     <div class="pt-5 mt-4">
         <!-- バナー表示エリア -->
-        <div class="swiper-container">
             <button class="prev-btn">＜前へ</button>
-            <div class="swiper-wrapper">
-                @foreach($banners as $banner)
-                    <div class="swiper-slide">
-                        <img src="{{ asset($banner->image) }}" class="top-image" alt="Banner Image">
-                    </div>
+
+            <div class="banner-container">
+                @foreach ($banners as $index => $banner)
+                        <img src="{{ asset($banner->image) }}" class="banner-image" alt="Banner Image {{ $index + 1 }}"
+                        style="display: {{ $index === 0 ? 'block' : 'none' }};">
                 @endforeach
             </div>
 
-            
             <button class="next-btn">次へ＞</button>
 
             <!-- ドットアイコンのエリア -->
-            <div class="dots"></div>
+        <div class="dots-container">
+            @foreach ($banners as $index => $banner)
+                <span class="dot @if($index === 0) active @endif" onclick="showImage({{ $index }})"></span>
+            @endforeach
+        </div>
         </div>
     </div>
 
@@ -44,50 +46,33 @@
 
 @push('scripts')
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const banners = document.querySelectorAll(".swiper-slide img");  // 画像の選択
-        const dotsContainer = document.querySelector(".dots");
-        const prevBtn = document.querySelector(".prev-btn");
-        const nextBtn = document.querySelector(".next-btn");
-        let currentBanner = 0;
+    let currentImage = 0;
 
-        // ドットアイコンを生成
-        banners.forEach((banner, index) => {
-            const dot = document.createElement("div");
-            dot.classList.add("dot");
-            if (index === currentBanner) dot.classList.add("active");
-            dotsContainer.appendChild(dot);
 
-            // ドットをクリックすると該当するスライドに移動
-            dot.addEventListener("click", () => {
-                showSlide(index); // クリックしたドットに対応する画像に切り替える
-            });
+    function showImage(index) {
+        const images = document.querySelectorAll('.banner-image');
+        const dots = document.querySelectorAll('.dot');
+
+        images.forEach((img, i) => {
+            img.style.display = (i === index) ? 'block' : 'none';
+            dots[i].classList.toggle('active', i === index);
         });
 
-        // スライドとドットを更新する関数
-        function showSlide(index) {
-            // 現在のバナーとドットを非表示に
-            banners[currentBanner].classList.remove("active");
-            dotsContainer.children[currentBanner].classList.remove("active");
 
-            // 新しいバナーとドットを表示
-            currentBanner = index;
-            banners[currentBanner].classList.add("active");
-            dotsContainer.children[currentBanner].classList.add("active");
-        }
+        currentImage = index;
+    }
 
-        // 次へボタン
-        nextBtn.addEventListener("click", function() {
-            showSlide((currentBanner + 1) % banners.length);
-        });
-
-        // 前へボタン
-        prevBtn.addEventListener("click", function() {
-            showSlide((currentBanner - 1 + banners.length) % banners.length);
-        });
-
-        // 初期表示
-        showSlide(currentBanner);
+    // 「次へ」ボタンで次の画像を表示
+    document.querySelector('.next-btn').addEventListener('click', function() {
+        const totalImages = document.querySelectorAll('.banner-image').length; 
+        showImage((currentImage + 1) % totalImages);  
     });
+
+    // 「前へ」ボタンで前の画像を表示
+    document.querySelector('.prev-btn').addEventListener('click', function() {
+        const totalImages = document.querySelectorAll('.banner-image').length; 
+        showImage((currentImage - 1 + totalImages) % totalImages);  
+    });
+    showImage(currentImage);
 </script>
 @endpush
