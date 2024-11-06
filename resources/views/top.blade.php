@@ -12,7 +12,6 @@
 
     <div class="pt-5 mt-4">
         <!-- バナー表示エリア -->
-            <button class="prev-btn">＜前へ</button>
 
             <div class="banner-container">
                 @foreach ($banners as $index => $banner)
@@ -20,8 +19,6 @@
                         style="display: {{ $index === 0 ? 'block' : 'none' }};">
                 @endforeach
             </div>
-
-            <button class="next-btn">次へ＞</button>
 
             <!-- ドットアイコンのエリア -->
         <div class="dots-container">
@@ -61,18 +58,6 @@
 
         currentImage = index;
     }
-
-    // 「次へ」ボタンで次の画像を表示
-    document.querySelector('.next-btn').addEventListener('click', function() {
-        const totalImages = document.querySelectorAll('.banner-image').length; 
-        showImage((currentImage + 1) % totalImages);  
-    });
-
-    // 「前へ」ボタンで前の画像を表示
-    document.querySelector('.prev-btn').addEventListener('click', function() {
-        const totalImages = document.querySelectorAll('.banner-image').length; 
-        showImage((currentImage - 1 + totalImages) % totalImages);  
-    });
     showImage(currentImage);
 </script>
 @endpush
