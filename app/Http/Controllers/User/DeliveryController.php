@@ -37,14 +37,16 @@ class DeliveryController extends Controller
     $now = now();  // 現在の時間
 
     $isWithinDeliveryPeriod = true;
-    
+
     // 現在の時間が配信期間外かどうかを確認
+    $isWithinDeliveryPeriod = false;
     if ($deliveryTime) {
-        $isOutsideDeliveryPeriod = ($now < $deliveryTime->delivery_from || $now > $deliveryTime->delivery_to);
-    } else {
-        $isOutsideDeliveryPeriod = true;  // 配信期間がない場合は期間外と見なす
+        $isWithinDeliveryPeriod = ($now >= $deliveryTime->delivery_from && $now <= $deliveryTime->delivery_to);
     }
-        return view('delivery', compact('curriculum', 'curriculumProgress', 'grades','grade', 'isCompleted', 'isOutsideDeliveryPeriod'));
+    $isAlwaysPublic = $curriculum->alway_delivery_flg;
+    $canViewContent = $isAlwaysPublic || $isWithinDeliveryPeriod;
+    
+    return view('delivery', compact('curriculum', 'curriculumProgress', 'grades', 'grade', 'isCompleted', 'canViewContent'));
     }
     
     public function createCurriculum()
@@ -76,4 +78,5 @@ class DeliveryController extends Controller
 
         return redirect()->back()->with('success', 'カリキュラムが受講済みとしてマークされました。');
     }
+    
 }

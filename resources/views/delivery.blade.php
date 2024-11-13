@@ -10,7 +10,11 @@
 
     <!-- 授業のビデオ（iframeで埋め込み） -->
     <div class="video-container mb-3">
+        @if ($canViewContent)
         <iframe src="{{ $curriculum->video_url }}" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+        @else
+            <p>この動画は現在公開されていません。</p>
+        @endif
 
         <!-- ボタンをここに配置 -->
         <div class="button-container">
@@ -18,15 +22,15 @@
                 <p>この授業は既に受講済みです。</p>
             @else
                 <!-- 授業が配信期間内かチェック -->
-                @if ($isOutsideDeliveryPeriod)
-                    <p>この授業は配信期間外です。</p>
-                    <button class="btn btn-secondary" disabled>受講ボタンは無効です</button>
-                @else
+                 @if ($canViewContent)
                     <!-- 「受講しました」ボタン -->
                     <form action="{{ route('mark.completed', $curriculum->id) }}" method="POST">
                         @csrf
                         <button type="submit" class="btn btn-success">受講しました</button>
                     </form>
+                @else
+                    <p>この授業は配信期間外です。</p>
+                    <button class="btn btn-secondary" disabled>受講ボタンは無効です</button>
                 @endif
             @endif
         </div>
